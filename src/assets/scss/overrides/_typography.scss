@@ -1,0 +1,52 @@
+
+
+@use "../variables";
+.mat-subtitle-2,
+.mat-subtitle-1,
+.mat-headline-5,
+.mat-headline-6,
+.mat-subtitle-1,
+.mat-subtitle-2,
+.mat-body-1,
+.mat-body-2 {
+  color: variables.$textPrimary;
+}
+
+
+
+
+.mat-headline-5 {
+  margin: 0;
+  color: variables.$textPrimary;
+}
+
+.mat-headline-6 {
+  margin: 0;
+  color: variables.$textPrimary;
+}
+
+.mat-subtitle-2 {
+  margin: 0;
+  color: variables.$textPrimary;
+}
+
+.mat-subtitle-1 {
+  margin: 0;
+  color: variables.$textPrimary;
+}
+
+.mat-body-1 {
+  margin: 0;
+  color: variables.$textPrimary;
+}
+
+.mat-body-2 {
+  margin: 0;
+  color: variables.$textPrimary;
+}
+
+.mdc-list-item__primary-text,
+.mat-drawer-container,
+.mat-drawer {
+  color: variables.$textPrimary;
+}

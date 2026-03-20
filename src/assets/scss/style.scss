@@ -1,0 +1,18 @@
+@use "@angular/material" as mat;
+@use "variables";
+@use "helpers/color";
+@use "helpers/icon-size";
+@use "themecolors/default_theme";
+@use "overrides/materialoverrides";
+@use "container";
+@use "layouts/layouts";
+@use "grid/grid";
+@use "helpers/custom-flex";
+@use "helpers/index";
+@use "pages/dashboards";
+@use "pages/auth";
+
+@include mat.core();
+
+//Theme colors
+@include mat.all-component-themes(default_theme.$bluetheme);
