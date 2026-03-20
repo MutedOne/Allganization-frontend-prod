@@ -1,0 +1,14 @@
+.cardWithShadow{
+    height: 100vh; 
+    max-height: 90vh;
+    width: 100vw;
+    overflow-y: scroll
+}
+
+.pdf-fullscreen {
+  position: relative;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
