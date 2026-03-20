@@ -1,0 +1,20 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <mat-card-title>Accounts</mat-card-title>
+
+    <div class="table-responsive">
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="openAddUser()"
+        matBadgePosition="before"
+        matBadgeColor="accent"
+      >
+        Add
+      </button>
+      @if (!isLoading) {
+        <app-list-account></app-list-account>
+      }
+    </div>
+  </mat-card-content>
+</mat-card>

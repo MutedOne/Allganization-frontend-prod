@@ -1,0 +1,82 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    @if(isLoading | async; as loading){
+    <mat-spinner></mat-spinner>
+    }
+    <mat-card-title>Forms</mat-card-title>
+
+    <div class="table-responsive">
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="openAddForm()"
+        matBadgePosition="before"
+        matBadgeColor="accent"
+      >
+        Add
+      </button>
+      @if(getForms | async; as forms){
+
+      <table mat-table [dataSource]="forms" class="w-100">
+        <ng-container matColumnDef="Details">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-600 mat-subtitle-1 f-s-14 p-l-0"
+          >
+            Details
+          </th>
+          <td mat-cell *matCellDef="let element" class="p-l-0">
+            <div class="d-flex align-items-center">
+              <div class="m-l-16">
+                <h6 class="mat-subtitle-1 f-s-16 f-w-600">
+                  {{ element.name }}
+                </h6>
+                <span class="f-s-14 f-w-500 d-block">{{
+                  element.description
+                }}</span>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="f-w-600 mat-subtitle-1 f-s-14"
+          ></th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+              aria-label="Example icon-button with a menu"
+            >
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="openViewForm(element)">
+                <mat-icon>group</mat-icon>
+                <span>View</span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayTitle"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayTitle"></tr>
+      </table>
+      } @if(getTotalForm| async ; as total){ @if(pagination| async; as
+      pagination){
+      <mat-paginator
+        [length]="total"
+        [pageSize]="10"
+        (page)="pageEvent($event)"
+        [pageIndex]="pagination.pageIndex"
+        aria-label="Select page"
+      >
+      </mat-paginator>
+      } }
+    </div>
+  </mat-card-content>
+</mat-card>

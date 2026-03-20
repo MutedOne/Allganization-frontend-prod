@@ -1,0 +1,5 @@
+<div class="row">
+  @for (item of projectList; track item.title) {
+  <div class="col-4"><app-projects [projectData]="item"></app-projects></div>
+  }
+</div>

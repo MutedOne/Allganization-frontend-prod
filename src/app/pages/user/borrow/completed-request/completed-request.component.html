@@ -1,0 +1,117 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <mat-card-title>Completed request</mat-card-title>
+    @if (isLoading | async; as loading) {
+      <mat-spinner></mat-spinner>
+    }
+    <div class="table-responsive">
+      @if (allRequest | async; as requestlist) {
+        <table mat-table [dataSource]="requestlist" class="w-100">
+          <!-- Position Column -->
+          <ng-container matColumnDef="Form">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="f-w-600 mat-subtitle-1 f-s-14 p-l-0"
+            >
+              Form
+            </th>
+            <td mat-cell *matCellDef="let element" class="p-l-0">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16">
+                  <h6 class="mat-subtitle-1 f-s-16 f-w-600">
+                    {{ element.form_name }}
+                  </h6>
+                  <span class="f-s-14 f-w-500 d-block">{{
+                    element.description
+                  }}</span>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Purpose">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="f-w-600 mat-subtitle-1 f-s-14 p-l-0"
+            >
+              Purpose
+            </th>
+            <td mat-cell *matCellDef="let element" class="p-l-0">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16">
+                  <h6 class="mat-subtitle-1 f-s-16 f-w-600">
+                    {{ element.purpose }}
+                  </h6>
+                  <span class="f-s-14 f-w-500 d-block">{{
+                    element.description
+                  }}</span>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Created On">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="f-w-600 mat-subtitle-1 f-s-14 p-l-0"
+            >
+              Created On
+            </th>
+            <td mat-cell *matCellDef="let element" class="p-l-0">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16">
+                  <h6 class="mat-subtitle-1 f-s-16 f-w-600">
+                    {{ element.created_on | date }}
+                  </h6>
+                  <span class="f-s-14 f-w-500 d-block">{{
+                    element.description
+                  }}</span>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="f-w-600 mat-subtitle-1 f-s-14"
+            ></th>
+            <td mat-cell *matCellDef="let element" class="mat-body-1">
+              <button
+                mat-icon-button
+                [matMenuTriggerFor]="menu"
+                aria-label="Example icon-button with a menu"
+              >
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="downloadPDFRequest(element)">
+                  <mat-icon>cloud_download</mat-icon>
+                  <span>Download</span>
+                </button>
+              </mat-menu>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayTitle"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayTitle"></tr>
+        </table>
+      }
+      @if (totalRequest | async; as total) {
+        @if (pagination | async; as pagination) {
+          <mat-paginator
+            [length]="total"
+            [pageSize]="10"
+            (page)="pageEvent($event)"
+            [pageIndex]="pagination.pageIndex"
+            aria-label="Select page"
+          >
+          </mat-paginator>
+        }
+      }
+    </div>
+  </mat-card-content>
+</mat-card>
