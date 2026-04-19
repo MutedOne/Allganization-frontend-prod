@@ -66,11 +66,11 @@ export class ListAccountComponent implements OnInit {
   private accountService = inject(AccountService);
   allAccounts: Observable<Account[]> = this.storeService.select(selectAccount);
   isLoading = this.storeService.select(selectAccountLoading);
-  paginationDetailstest: Observable<Pagination> = this.storeService.select(
+  paginationDetailstest: Observable<any> = this.storeService.select(
     selectAccountPagination,
   );
-  totalAccounts: Observable<number> =
-    this.storeService.select(selectTotalAccounts);
+  // totalAccounts: Observable<number> =
+  //   this.storeService.select(selectTotalAccounts);
   paginationRequest: PaginationDetails<Account>;
 
   displayTitle: string[] = ['assigned', 'status', 'action'];

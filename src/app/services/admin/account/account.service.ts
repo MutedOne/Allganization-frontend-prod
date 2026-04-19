@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { buildQueryParams } from 'src/app/helper/queryBuilder';
 import { Account } from 'src/app/interface/admin/account/account';
 import { Message, ViewId } from 'src/app/interface/global';
 import { Pagination, Totalpage } from 'src/app/interface/pagination';
@@ -13,12 +14,15 @@ export class AccountService {
 
   getAllAccount(pagination: Pagination, viewId: ViewId) {
     const { pageIndex, search } = pagination;
-    const params = new HttpParams({
-      fromObject: {
-        pageIndex,
-        search,
-        ...viewId,
-      },
+    const currentPage = pageIndex
+
+    const params = buildQueryParams({
+      pageIndex: currentPage,
+      search: pagination.search,
+      filter: {
+        accountId: viewId.id,
+        accountPositionId: 1 // optional
+      }
     });
     return this.http.get<Account[]>(`${environment.apiURL}/admin/account`, {
       params,

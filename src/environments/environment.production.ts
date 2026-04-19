@@ -1,5 +1,5 @@
 export const environment = {
-  apiURL: 'http://localhost:3002/api/v1',
+  apiURL: 'https://api.allganization.com/api/v1',
   accountPassword: 'Admin123',
   accountUser: 'admin',
 };

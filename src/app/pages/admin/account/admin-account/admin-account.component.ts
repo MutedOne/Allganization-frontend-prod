@@ -64,7 +64,7 @@ export class AdminAccountComponent implements OnInit {
   ngOnInit() {
     this.paginationRequest = defaultPaginationDetails<Account>();
     this.getAllAccount();
-    this.getTotalAccount();
+    // this.getTotalAccount();
   }
 
   getAllAccount() {

@@ -19,7 +19,7 @@ export class LoginEffects {
           tap((response) => {
             sessionStorage.setItem('access_token', response.token);
             sessionStorage.setItem('isAdmin', response.isAdmin.toString());
-            this.router.navigate(['/']);
+            this.router.navigate(['/users']);
             return response;
           }),
           map((response) =>
