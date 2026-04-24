@@ -13,9 +13,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   const token = sessionStorage.getItem('access_token');
 
-  if (req.url.includes('/api/v1/login')) {
-    return next(req); // ❌ no auth headers, no credentials logic
-  }
   const clonedRequest = req.clone({
     setHeaders: {
       Authorization: `Bearer ${token}`,

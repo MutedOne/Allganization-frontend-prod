@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
   imports: [RouterModule],
   template: `
     <div class="branding">
-      <a [routerLink]="['/']">
+      <a [routerLink]="['/users']">
         <div class="logo">
           <div class="mark" aria-hidden="true">
             <span></span>
