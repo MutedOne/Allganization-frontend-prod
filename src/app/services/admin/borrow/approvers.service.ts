@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { AddApprover, Approver } from 'src/app/interface/admin/borrow/approver';
+import { buildQueryParams } from 'src/app/helper/queryBuilder';
+import { AddApprover, Approver, approverList } from 'src/app/interface/admin/borrow/approver';
 import { Message, ViewId } from 'src/app/interface/global';
 import { Pagination, Totalpage } from 'src/app/interface/pagination';
 import { environment } from 'src/environments/environment';
@@ -16,16 +17,16 @@ export class ApproversService {
       data,
     );
   }
-  getAllApprover(pagination: Pagination, viewId: ViewId) {
-    const { pageIndex, search } = pagination;
-    const params = new HttpParams({
-      fromObject: {
-        pageIndex,
-        search,
-        ...viewId,
-      },
+  getAllApprover(pagination: Pagination, approverId: ViewId) {
+    const { currentPage, search } = pagination;
+    const params = buildQueryParams({
+      currentPage: currentPage,
+      search: search,
+      filter: {
+        approverId: approverId.id,
+      }
     });
-    return this.http.get<Approver[]>(
+    return this.http.get<approverList>(
       `${environment.apiURL}/admin/borrow/approvers`,
       {
         params,

@@ -12,7 +12,7 @@ export const getForms = createAction(
 
 export const getFormsSuccess = createAction(
   '[Forms] getFormsSuccess',
-  props<{ data: Form[]; pagination: Pagination }>()
+  props<{ data: Form[]; pagination: Pagination, total: number }>()
 );
 
 export const getFormsFailure = createAction(

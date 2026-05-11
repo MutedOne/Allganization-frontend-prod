@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Position } from 'src/app/interface/admin/account/position';
+import { Position, PositionList } from 'src/app/interface/admin/account/position';
 
 import { ViewId } from 'src/app/interface/global';
 import { Pagination, Totalpage } from 'src/app/interface/pagination';
@@ -13,15 +13,15 @@ export class PositionService {
   private http = inject(HttpClient);
 
   getAllPosition(pagination: Pagination, viewId: ViewId) {
-    const { pageIndex, search } = pagination;
+    const { currentPage, search } = pagination;
     const params = new HttpParams({
       fromObject: {
-        pageIndex,
+        currentPage,
         search,
         ...viewId,
       },
     });
-    return this.http.get<Position[]>(
+    return this.http.get<PositionList>(
       `${environment.apiURL}/admin/account/position`,
       {
         params,

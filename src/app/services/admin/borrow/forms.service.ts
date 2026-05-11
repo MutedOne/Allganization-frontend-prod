@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Form } from 'src/app/interface/admin/borrow/form';
+import { buildQueryParams } from 'src/app/helper/queryBuilder';
+import { Form, formList } from 'src/app/interface/admin/borrow/form';
 import { Message, ViewId } from 'src/app/interface/global';
 import { Pagination, Totalpage } from 'src/app/interface/pagination';
 import { environment } from 'src/environments/environment';
@@ -16,18 +17,17 @@ export class FormsService {
       data,
     );
   }
-  getAllforms(pagination: Pagination, viewId: ViewId) {
-    const { pageIndex, search, filter } = pagination;
+  getAllforms(pagination: Pagination, formId: ViewId) {
+    const { currentPage, search } = pagination;
 
-    const params = new HttpParams({
-      fromObject: {
-        pageIndex,
-        search,
-        filter,
-        ...viewId,
-      },
+    const params = buildQueryParams({
+      currentPage: currentPage,
+      search: search,
+      filter: {
+        formId: formId.id,
+      }
     });
-    return this.http.get<Form[]>(`${environment.apiURL}/admin/borrow/forms`, {
+    return this.http.get<formList>(`${environment.apiURL}/admin/borrow/forms`, {
       params,
     });
   }

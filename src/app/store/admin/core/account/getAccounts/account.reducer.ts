@@ -19,9 +19,10 @@ export const accountReducer = createReducer(
     error: null,
   })),
 
-  on(getAccountsSuccess, (state, { data, pagination }) => ({
+  on(getAccountsSuccess, (state, { data, pagination, total }) => ({
     ...state,
     data: data,
+    total: total,
     pagination: pagination,
     loading: false,
     error: null,

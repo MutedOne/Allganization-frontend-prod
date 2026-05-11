@@ -47,9 +47,9 @@ export class ViewDepartmentComponent {
 
   viewId: ViewId = defaultId();
   paginationDetails: Pagination = defaultPagination();
-  constructor(@Inject(MAT_DIALOG_DATA) public data: ViewPosition) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: ViewPosition) { }
   private accountService = inject(AccountService);
-  paginationRequest: any = defaultPaginationDetails();
+  paginationRequest: any = defaultPaginationDetails;
   isLoading: boolean = false;
   private storeService = inject(Store);
   ngOnInit() {
@@ -61,8 +61,8 @@ export class ViewDepartmentComponent {
   }
   getAllAccount() {
     console.log(this.viewId);
-    const { pageIndex, search, filter } = this.paginationRequest;
-    const paginationDetails = { pageIndex, search, filter };
+    const { currentPage, search, filter } = this.paginationRequest;
+    const paginationDetails = { currentPage, search, filter };
 
     this.storeService.dispatch(getAccounts(paginationDetails, this.viewId));
   }
@@ -76,15 +76,15 @@ export class ViewDepartmentComponent {
   paginationData(event: any) {
     this.isLoading = true;
     const { search, filter } = this.paginationRequest;
-    const pageIndex = event;
-    const paginationDetails = { pageIndex, search, filter };
+    const currentPage = event;
+    const paginationDetails = { currentPage, search, filter };
     this.accountService
       .getAllAccount(paginationDetails, this.viewId)
       .subscribe((data) => {
         this.paginationRequest = {
           ...this.paginationRequest,
           data: data,
-          pageIndex: event,
+          currentPage: event,
         };
         this.isLoading = false;
       });

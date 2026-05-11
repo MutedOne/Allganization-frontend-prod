@@ -19,9 +19,10 @@ export const borrowCompletedRequestReducer = createReducer(
     error: null,
   })),
 
-  on(BorrowRequestCompletedSuccess, (state, { data, pagination }) => ({
+  on(BorrowRequestCompletedSuccess, (state, { data, pagination, total }) => ({
     ...state,
     data: data,
+    total: total,
     pagination: pagination,
     loading: false,
     error: null,

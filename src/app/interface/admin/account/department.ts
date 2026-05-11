@@ -1,3 +1,5 @@
+import { PaginationDetails } from "../../pagination";
+
 export interface AddDepartment {
   id: number;
   level: number;
@@ -17,4 +19,8 @@ export interface Department {
   id: number;
   name: string;
   occupiedLevel: number;
+}
+
+export interface DepartmentList extends PaginationDetails {
+  listDepartment: Department[];
 }

@@ -12,7 +12,7 @@ export const getPosition = createAction(
 
 export const getPositionSuccess = createAction(
   '[Position] getPositionSuccess',
-  props<{ data: Position[]; pagination: Pagination }>()
+  props<{ data: Position[]; pagination: Pagination, total: number }>()
 );
 
 export const getPositionFailure = createAction(

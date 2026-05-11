@@ -23,12 +23,13 @@ export class DepartmentEffects {
         this.departmentService
           .getAllDepartment(action.pagination, action.viewId)
           .pipe(
-            map((response) =>
-              getDepartmentSuccess({
-                data: response,
-                pagination: action.pagination,
+            map((response) => {
+              const { listDepartment, total, ...pagination } = response
+              return getDepartmentSuccess({
+                data: response.listDepartment,
+                pagination: pagination,
               })
-            ),
+            }),
 
             catchError((error: any) => {
               return of(getDepartmentFailure({ error: error.error.message }));

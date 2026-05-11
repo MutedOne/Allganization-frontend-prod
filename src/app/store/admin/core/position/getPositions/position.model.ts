@@ -4,6 +4,7 @@ import { Pagination } from 'src/app/interface/pagination';
 
 export interface GetPosition {
   data: Position[];
+  total: number;
   pagination: Pagination;
   loading: boolean;
   error: string | null;

@@ -20,16 +20,22 @@ export class AccountEffects {
 
       exhaustMap((action) =>
         this.accountService
-          .getAllAccount(action.pagination, action.viewId)
+          .getAllAccount(action.pagination, action.accountId)
           .pipe(
-            map((response) =>
-              getAccountsSuccess({
-                data: response,
-                pagination: action.pagination,
+            map((response) => {
+              const { listAccount, total, ...pagination } = response
+
+              return getAccountsSuccess({
+                data: response.listAccount,
+                total: response.total,
+                pagination: pagination,
               })
+            }
+
             ),
 
             catchError((error: any) => {
+
               return of(getAccountsFailure({ error: error.error.message }));
             })
           )

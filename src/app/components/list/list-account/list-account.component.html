@@ -73,7 +73,11 @@
 </table>
 @if(paginationDetailstest|async; as
 pagination){
-<mat-paginator [length]="pagination.total" [pageSize]="10" [pageIndex]="pagination.pageIndex" (page)="pageEvent($event)"
+  @if(totalListAccount|async; as
+total){
+<mat-paginator [length]="total" [pageSize]="10" [pageIndex]="pagination.currentPage" (page)="pageEvent($event)"
   aria-label="Select page">
 </mat-paginator>
+}
+
 } }

@@ -22,12 +22,14 @@ export class PositionEffects {
         this.positionService
           .getAllPosition(action.pagination, action.viewId)
           .pipe(
-            map((response) =>
-              getPositionSuccess({
-                data: response,
-                pagination: action.pagination,
+            map((response) => {
+              const { listPosition, total, ...pagination } = response
+              return getPositionSuccess({
+                data: response.listPosition,
+                total: response.total,
+                pagination: pagination,
               })
-            ),
+            }),
 
             catchError((error: any) => {
               return of(getPositionFailure({ error: error.error.message }));

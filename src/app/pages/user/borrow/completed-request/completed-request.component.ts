@@ -28,14 +28,12 @@ import { FormsService } from 'src/app/services/admin/borrow/forms.service';
 import { BorrowRequestCompleted } from 'src/app/store/user/borrow/request/getCompletedRequest/request.actions';
 import {
   selectBorrowCompleted,
+  selectBorrowCompletedLoading,
   selectBorrowCompletedPagination,
+  selectBorrowCompletedtotal,
 } from 'src/app/store/user/borrow/request/getCompletedRequest/request.selectors';
 
-import { getTotalBorrowCompleted } from 'src/app/store/user/borrow/request/getTotalCompletedRequest/requestTotal.action';
-import {
-  selectBorrowTotalCompleted,
-  selectBorrowTotalCompletedLoading,
-} from 'src/app/store/user/borrow/request/getTotalCompletedRequest/requestTotal.selectors';
+
 
 @Component({
   selector: 'app-completed-request',
@@ -59,36 +57,31 @@ import {
   styleUrl: './completed-request.component.scss',
 })
 export class CompletedRequestComponent {
-  paginationRequest: PaginationDetails<BorrowRequest>;
+  paginationRequest: PaginationDetails;
   displayTitle = ['Form', 'Purpose', 'Created On', 'action'];
 
   viewId: ViewId = defaultId();
   formsService = inject(FormsService);
   readonly dialog = inject(MatDialog);
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) { }
   storeService = inject(Store);
   allRequest = this.storeService.select(selectBorrowCompleted);
   pagination = this.storeService.select(selectBorrowCompletedPagination);
-  totalRequest = this.storeService.select(selectBorrowTotalCompleted);
-  isLoading = this.storeService.select(selectBorrowTotalCompletedLoading);
+  totalRequest = this.storeService.select(selectBorrowCompletedtotal);
+  isLoading = this.storeService.select(selectBorrowCompletedLoading);
   ngOnInit(): void {
-    this.paginationRequest = defaultPaginationDetails<BorrowRequest>();
-
+    this.paginationRequest = defaultPaginationDetails;
     this.getAllRequests();
-    this.getTotalRequest();
   }
   getAllRequests() {
-    this.paginationRequest.filter = 'completed';
-    const { pageIndex, search, filter } = this.paginationRequest;
-    const paginationDetails = { pageIndex, search, filter };
+    // this.paginationRequest.filter = 'completed';
+    const { currentPage, search, filter } = this.paginationRequest;
+    const paginationDetails = { currentPage, search, filter };
 
     this.storeService.dispatch(
       BorrowRequestCompleted(paginationDetails, this.viewId),
     );
-  }
-  getTotalRequest() {
-    this.storeService.dispatch(getTotalBorrowCompleted(this.viewId));
   }
   downloadPDFRequest(request: any) {
     this.formsService
@@ -139,8 +132,8 @@ export class CompletedRequestComponent {
   }
   pageEvent(event: any) {
     const { search, filter } = this.paginationRequest;
-    const pageIndex = event.pageIndex;
-    const paginationDetails = { pageIndex, search, filter };
+    const currentPage = event.currentPage;
+    const paginationDetails = { currentPage, search, filter };
     this.storeService.dispatch(
       BorrowRequestCompleted(paginationDetails, this.viewId),
     );

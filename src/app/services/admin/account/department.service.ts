@@ -4,6 +4,7 @@ import { catchError, of } from 'rxjs';
 import {
   AddDepartment,
   Department,
+  DepartmentList,
 } from 'src/app/interface/admin/account/department';
 import { Message, ViewId } from 'src/app/interface/global';
 import { Pagination } from 'src/app/interface/pagination';
@@ -16,15 +17,15 @@ export class DepartmentService {
   private http = inject(HttpClient);
 
   getAllDepartment(pagination: Pagination, viewId: ViewId) {
-    const { pageIndex, search } = pagination;
+    const { currentPage, search } = pagination;
     const params = new HttpParams({
       fromObject: {
-        pageIndex,
+        currentPage,
         search,
         ...viewId,
       },
     });
-    return this.http.get<Department[]>(
+    return this.http.get<DepartmentList>(
       `${environment.apiURL}/admin/account/department`,
       { params },
     );

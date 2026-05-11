@@ -19,9 +19,10 @@ export const positionReducer = createReducer(
     error: null,
   })),
 
-  on(getPositionSuccess, (state, { data, pagination }) => ({
+  on(getPositionSuccess, (state, { data, pagination, total }) => ({
     ...state,
     data: data,
+    total: total,
     pagination: pagination,
     loading: false,
     error: null,

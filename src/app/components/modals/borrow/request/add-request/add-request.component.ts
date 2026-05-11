@@ -73,13 +73,13 @@ export class AddRequestComponent {
   private requestService = inject(RequestService);
   AddBorrowRequestDetails = AddBorrowRequestDefault();
   viewId: ViewId = defaultId();
-  paginationRequest: PaginationDetails<GetAllBorrowRequest>;
+  paginationRequest: PaginationDetails;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) { }
 
   storeService = inject(Store);
   ngOnInit(): void {
-    this.paginationRequest = defaultPaginationDetails<GetAllBorrowRequest>();
+    this.paginationRequest = defaultPaginationDetails;
     this.validate();
     this.getAllForms();
     this.getIDForm();
@@ -100,10 +100,10 @@ export class AddRequestComponent {
       switchMap((searchTerm) => {
         this.paginationRequest.search = searchTerm;
 
-        const { search, pageIndex, filter } = this.paginationRequest;
+        const { search, currentPage, filter } = this.paginationRequest;
 
         this.storeService.dispatch(
-          getForms({ search, pageIndex, filter }, this.viewId),
+          getForms({ search, currentPage, filter }, this.viewId),
         );
         return this.storeService.select(selectForm);
       }),
@@ -120,22 +120,22 @@ export class AddRequestComponent {
     );
   }
   private getIDForm() {
-    const { pageIndex, search, filter } = this.paginationRequest;
-    this.addRequest.controls['form_id'].valueChanges
-      .pipe(
-        debounceTime(2000),
-        distinctUntilChanged(),
-        switchMap((searchTerm) => {
-          this.paginationRequest.search = searchTerm;
-          return this.formsService.getAllforms(
-            { pageIndex, search, filter },
-            this.viewId,
-          );
-        }),
-      )
-      .subscribe((data) => {
-        this.options = data;
-      });
+    // const { currentPage, search, filter } = this.paginationRequest;
+    // this.addRequest.controls['form_id'].valueChanges
+    //   .pipe(
+    //     debounceTime(2000),
+    //     distinctUntilChanged(),
+    //     switchMap((searchTerm) => {
+    //       this.paginationRequest.search = searchTerm;
+    //       return this.formsService.getAllforms(
+    //         { currentPage, search, filter },
+    //         this.viewId,
+    //       );
+    //     }),
+    //   )
+    //   .subscribe((data) => {
+    //     this.options = data;
+    //   });
   }
   private _filterForm(value: any): any[] {
     const filterValue = value.toLowerCase();

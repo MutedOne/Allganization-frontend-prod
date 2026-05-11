@@ -16,13 +16,15 @@ export class FormsEffects {
 
       exhaustMap((action) =>
         this.formService.getAllforms(action.pagination, action.viewId).pipe(
-          map((response) =>
-            getFormsSuccess({
-              data: response,
-              pagination: action.pagination,
-            })
-          ),
+          map((response) => {
+            const { listForms, total, ...pagination } = response
 
+            return getFormsSuccess({
+              data: response.listForms,
+              total: response.total,
+              pagination: pagination,
+            })
+          }),
           catchError((error: any) => {
             return of(getFormsFailure({ error: error.error.message }));
           })

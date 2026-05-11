@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { buildQueryParams } from 'src/app/helper/queryBuilder';
-import { Account } from 'src/app/interface/admin/account/account';
+import { Account, AccountList } from 'src/app/interface/admin/account/account';
 import { Message, ViewId } from 'src/app/interface/global';
-import { Pagination, Totalpage } from 'src/app/interface/pagination';
+import { Pagination, PaginationDetails, Totalpage } from 'src/app/interface/pagination';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,19 +12,17 @@ import { environment } from 'src/environments/environment';
 export class AccountService {
   private http = inject(HttpClient);
 
-  getAllAccount(pagination: Pagination, viewId: ViewId) {
-    const { pageIndex, search } = pagination;
-    const currentPage = pageIndex
+  getAllAccount(pagination: Pagination, accountId: ViewId) {
+    const { currentPage, search } = pagination;
 
     const params = buildQueryParams({
-      pageIndex: currentPage,
-      search: pagination.search,
+      currentPage: currentPage,
+      search: search,
       filter: {
-        accountId: viewId.id,
-        accountPositionId: 1 // optional
+        accountId: accountId.id,
       }
     });
-    return this.http.get<Account[]>(`${environment.apiURL}/admin/account`, {
+    return this.http.get<AccountList>(`${environment.apiURL}/admin/account`, {
       params,
     });
   }

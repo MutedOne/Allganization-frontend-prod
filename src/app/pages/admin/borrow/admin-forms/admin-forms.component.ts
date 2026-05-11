@@ -31,14 +31,10 @@ import { FormsService } from 'src/app/services/admin/borrow/forms.service';
 import { getForms } from 'src/app/store/admin/borrow/form/getForms/forms.actions';
 import {
   selectForm,
+  selectFormListTotal,
   selectFormLoading,
   selectFormPagination,
 } from 'src/app/store/admin/borrow/form/getForms/forms.selectors';
-import {
-  getTotalForms,
-  getTotalFormsSuccess,
-} from 'src/app/store/admin/borrow/form/getTotalForms/formsTotal.actions';
-import { selectTotalforms } from 'src/app/store/admin/borrow/form/getTotalForms/formsTotal.selectors';
 
 @Component({
   selector: 'app-admin-forms',
@@ -67,30 +63,26 @@ export class AdminFormsComponent implements OnInit {
   displayTitle = ['Details', 'action'];
   viewId: ViewId = defaultId();
 
-  paginationRequest: PaginationDetails<Form>;
+  paginationRequest: PaginationDetails;
   private formsService = inject(FormsService);
   readonly dialog = inject(MatDialog);
   storeService = inject(Store);
 
   getForms = this.storeService.select(selectForm);
-  getTotalForm = this.storeService.select(selectTotalforms);
+  getTotalForm = this.storeService.select(selectFormListTotal);
   pagination = this.storeService.select(selectFormPagination);
   isLoading = this.storeService.select(selectFormLoading);
 
   ngOnInit(): void {
-    this.paginationRequest = defaultPaginationDetails<Form>();
+    this.paginationRequest = defaultPaginationDetails;
     this.getAllForms();
-    this.getTotalForms();
   }
   private getAllForms() {
-    const { pageIndex, search, filter } = this.paginationRequest;
-    const paginationDetails = { pageIndex, search, filter };
+    const { currentPage, search, filter } = this.paginationRequest;
+    const paginationDetails = { currentPage, search, filter };
     this.storeService.dispatch(getForms(paginationDetails, this.viewId));
   }
-  private getTotalForms() {
-    this.storeService.dispatch(getTotalForms(this.viewId));
-  }
-  openViewForm(detail: any) {}
+  openViewForm(detail: any) { }
   openAddForm() {
     const dialogRef = this.dialog.open(AddFormsComponent);
 
@@ -101,8 +93,8 @@ export class AdminFormsComponent implements OnInit {
 
   pageEvent(event: any) {
     const { search, filter } = this.paginationRequest;
-    const pageIndex = event.pageIndex;
-    const paginationDetails = { pageIndex, search, filter };
+    const currentPage = event.currentPage;
+    const paginationDetails = { currentPage, search, filter };
     this.storeService.dispatch(getForms(paginationDetails, this.viewId));
   }
 }

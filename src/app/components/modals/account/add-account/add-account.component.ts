@@ -80,8 +80,8 @@ import { environment } from 'src/environments/environment';
 export class AddAccountComponent implements OnInit {
   storeService = inject(Store);
 
-  paginationRequest: PaginationDetails<Department>;
-  paginationRequestPosition: PaginationDetails<Position>;
+  paginationRequest: PaginationDetails;
+  paginationRequestPosition: PaginationDetails;
   viewId: ViewId = defaultId();
   viewIdPosition: ViewId = defaultId();
   filteredOptions: Observable<any[]>;
@@ -89,11 +89,11 @@ export class AddAccountComponent implements OnInit {
   addAccountDetails: AddAccount;
   userForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.paginationRequest = defaultPaginationDetails<Department>();
-    this.paginationRequestPosition = defaultPaginationDetails<Position>();
+    this.paginationRequest = defaultPaginationDetails;
+    this.paginationRequestPosition = defaultPaginationDetails;
     this.addAccountDetails = AddAccountDefault();
 
     this.validateForm();
@@ -126,10 +126,10 @@ export class AddAccountComponent implements OnInit {
       distinctUntilChanged(),
       switchMap((searchTerm) => {
         this.paginationRequest.search = searchTerm;
-        const { search, pageIndex, filter } = this.paginationRequest;
+        const { search, currentPage, filter } = this.paginationRequest;
 
         this.storeService.dispatch(
-          getDepartment({ search, pageIndex, filter }, this.viewIdPosition),
+          getDepartment({ search, currentPage, filter }, this.viewIdPosition),
         );
         return this.storeService.select(selectDepartment);
       }),
@@ -160,10 +160,10 @@ export class AddAccountComponent implements OnInit {
       distinctUntilChanged(),
       switchMap((searchTerm) => {
         this.paginationRequestPosition.search = searchTerm;
-        const { search, pageIndex, filter } = this.paginationRequestPosition;
+        const { search, currentPage, filter } = this.paginationRequestPosition;
 
         this.storeService.dispatch(
-          getPosition({ search, pageIndex, filter }, { id: id }),
+          getPosition({ search, currentPage, filter }, { id: id }),
         );
         return this.storeService.select(selectPosition);
       }),

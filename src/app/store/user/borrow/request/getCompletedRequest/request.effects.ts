@@ -21,12 +21,15 @@ export class BorrowCompletedRequestEffects {
         this.requestService
           .getAllCompletedRequests(action.pagination, action.viewId)
           .pipe(
-            map((response) =>
-              BorrowRequestCompletedSuccess({
-                data: response,
-                pagination: action.pagination,
-              }),
-            ),
+
+            map((response) => {
+              const { listOfCompletedAssetRequest, total, ...pagination } = response
+              return BorrowRequestCompletedSuccess({
+                data: response.listOfCompletedAssetRequest,
+                total: response.total,
+                pagination: pagination,
+              })
+            }),
 
             catchError((error: any) => {
               return of(

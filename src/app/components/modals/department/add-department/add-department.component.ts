@@ -63,16 +63,16 @@ import { addPosition } from 'src/app/store/admin/core/position/AddPosition/addPo
 })
 export class AddDepartmentComponent implements OnInit {
   departmentForm!: FormGroup;
-  paginationRequest: PaginationDetails<Department>;
+  paginationRequest: PaginationDetails;
   filteredOptions: Observable<any[]>;
   addAccountDetails = AddDepartmentDefault();
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) { }
 
   viewId: ViewId = defaultId();
   storeService = inject(Store);
 
   ngOnInit() {
-    this.paginationRequest = defaultPaginationDetails<Department>();
+    this.paginationRequest = defaultPaginationDetails;
     this.validate();
     this.apiGetDepartment();
   }
@@ -97,10 +97,10 @@ export class AddDepartmentComponent implements OnInit {
       distinctUntilChanged(),
       switchMap((searchTerm) => {
         this.paginationRequest.search = searchTerm;
-        const { search, pageIndex, filter } = this.paginationRequest;
+        const { search, currentPage, filter } = this.paginationRequest;
 
         this.storeService.dispatch(
-          getDepartment({ search, pageIndex, filter }, this.viewId)
+          getDepartment({ search, currentPage, filter }, this.viewId)
         );
         return this.storeService.select(selectDepartment);
       }),

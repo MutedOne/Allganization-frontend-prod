@@ -21,12 +21,14 @@ export class ApproveRequestEffects {
         this.requestService
           .approveListRequest(action.pagination, action.viewId)
           .pipe(
-            map((response) =>
-              getApproveRequestSuccess({
-                data: response,
-                pagination: action.pagination,
-              }),
-            ),
+            map((response) => {
+              const { listOfApprovalRequest, total, ...pagination } = response
+              return getApproveRequestSuccess({
+                data: response.listOfApprovalRequest,
+                total: response.total,
+                pagination: pagination,
+              })
+            }),
             tap((res) => console.log('Action received in Effect:', res)),
 
             catchError((error: any) => {

@@ -89,18 +89,18 @@ describe('ListAccountComponent', () => {
     (component as any).resignedAccount(mockListAccount);
     expect(component.viewId).toEqual({ id: mockListAccount.id });
   });
-  it('should update pageIndex and dispatch getAccounts action', () => {
+  it('should update currentPage and dispatch getAccounts action', () => {
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
     const event = {
-      pageIndex: 2,
+      currentPage: 2,
     };
     component.pageEvent(event as any);
-    const { pageIndex, search, filter } = component.paginationRequest;
-    expect(component.paginationRequest.pageIndex).toBe(2);
+    const { currentPage, search, filter } = component.paginationRequest;
+    expect(component.paginationRequest.currentPage).toBe(2);
 
     expect(dispatchSpy).toHaveBeenCalledWith(
       AccountActions.getAccounts(
-        { pageIndex, search, filter },
+        { currentPage, search, filter },
         component.viewId,
       ),
     );

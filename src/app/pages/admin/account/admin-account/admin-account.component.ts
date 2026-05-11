@@ -28,7 +28,7 @@ import { Account } from 'src/app/interface/admin/account/account';
 import { defaultId, ViewId } from 'src/app/interface/global';
 import { catchError, of } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { getTotalAccounts } from 'src/app/store/admin/core/account/getTotalAccounts/accountTotal.actions';
+
 import { getAccounts } from 'src/app/store/admin/core/account/getAccounts/account.actions';
 
 @Component({
@@ -54,7 +54,7 @@ import { getAccounts } from 'src/app/store/admin/core/account/getAccounts/accoun
 export class AdminAccountComponent implements OnInit {
   displayedColumns1: string[] = ['assigned', 'status', 'action'];
 
-  paginationRequest: PaginationDetails<Account>;
+  paginationRequest: PaginationDetails;
 
   viewId: ViewId = defaultId();
   isLoading: boolean = false;
@@ -62,20 +62,17 @@ export class AdminAccountComponent implements OnInit {
   private storeService = inject(Store);
 
   ngOnInit() {
-    this.paginationRequest = defaultPaginationDetails<Account>();
+    this.paginationRequest = defaultPaginationDetails;
     this.getAllAccount();
-    // this.getTotalAccount();
   }
 
   getAllAccount() {
-    const { pageIndex, search, filter } = this.paginationRequest;
-    const paginationDetails = { pageIndex, search, filter };
+    const { currentPage, search, filter } = this.paginationRequest;
+    const paginationDetails = { currentPage, search, filter };
 
     this.storeService.dispatch(getAccounts(paginationDetails, this.viewId));
   }
-  getTotalAccount() {
-    this.storeService.dispatch(getTotalAccounts(this.viewId));
-  }
+
   openEditUser() {
     const dialogRef = this.dialog.open(ViewAccountComponent);
 
@@ -94,8 +91,8 @@ export class AdminAccountComponent implements OnInit {
   paginationData(event: any) {
     this.isLoading = true;
     const { search, filter } = this.paginationRequest;
-    const pageIndex = event;
-    const paginationDetails = { pageIndex, search, filter };
+    const currentPage = event;
+    const paginationDetails = { currentPage, search, filter };
     this.storeService.dispatch(getAccounts(paginationDetails, this.viewId));
   }
 }

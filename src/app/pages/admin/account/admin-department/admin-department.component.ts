@@ -20,25 +20,19 @@ import { AddDepartmentComponent } from 'src/app/components/modals/department/add
 import { ViewDepartmentComponent } from 'src/app/components/modals/department/view-department/view-department.component';
 import { PositionService } from 'src/app/services/admin/account/position.service';
 import {
-  defaultPagination,
   defaultPaginationDetails,
-  defaultTotal,
-  Pagination,
   PaginationDetails,
-  Totalpage,
 } from 'src/app/interface/pagination';
-import { Position } from 'src/app/interface/admin/account/position';
 import { defaultId, ViewId } from 'src/app/interface/global';
-import { tap } from 'rxjs';
+
 import { Store } from '@ngrx/store';
 import {
   selectPosition,
   selectPositionLoading,
   selectPositionPagination,
+  selectPositionTotal,
 } from 'src/app/store/admin/core/position/getPositions/position.selectors';
-import { selectTotalPosition } from 'src/app/store/admin/core/position/getTotalPosition/positionTotal.selectors';
 import { getPosition } from 'src/app/store/admin/core/position/getPositions/position.actions';
-import { getTotalPosition } from 'src/app/store/admin/core/position/getTotalPosition/positionTotal.actions';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 export interface productsData {
@@ -75,26 +69,25 @@ export class AdminDepartmentComponent implements OnInit {
 
   viewId: ViewId = defaultId();
   readonly dialog = inject(MatDialog);
-  paginationRequest: PaginationDetails<Position>;
+  paginationRequest: PaginationDetails;
   positionService = inject(PositionService);
   private storeService = inject(Store);
   getPosition = this.storeService.select(selectPosition);
-  pagination = this.storeService.select(selectPositionPagination);
+  paginationDetails = this.storeService.select(selectPositionPagination);
   isLoading = this.storeService.select(selectPositionLoading);
-  getTotalPosition = this.storeService.select(selectTotalPosition);
+  totalListPosition = this.storeService.select(selectPositionTotal);
+
   ngOnInit(): void {
-    this.paginationRequest = defaultPaginationDetails<Position>();
+    this.paginationRequest = defaultPaginationDetails;
     this.getAllPosition();
-    this.getAllTotalPosition();
+
   }
   private getAllPosition() {
-    const { pageIndex, search, filter } = this.paginationRequest;
-    const paginationDetails = { pageIndex, search, filter };
+    const { currentPage, search, filter } = this.paginationRequest;
+    const paginationDetails = { currentPage, search, filter };
     this.storeService.dispatch(getPosition(paginationDetails, this.viewId));
   }
-  private getAllTotalPosition() {
-    this.storeService.dispatch(getTotalPosition(this.viewId));
-  }
+
   openAddDepartment() {
     const dialogRef = this.dialog.open(AddDepartmentComponent);
 
@@ -115,8 +108,8 @@ export class AdminDepartmentComponent implements OnInit {
 
   pageEvent(event: any) {
     const { search, filter } = this.paginationRequest;
-    const pageIndex = event.pageIndex;
-    const paginationDetails = { pageIndex, search, filter };
+    const currentPage = event.currentPage;
+    const paginationDetails = { currentPage, search, filter };
     this.storeService.dispatch(getPosition(paginationDetails, this.viewId));
   }
 }

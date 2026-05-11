@@ -1,3 +1,5 @@
+import { PaginationDetails } from "../../pagination";
+
 export interface Form {
   name: string;
   description: string;
@@ -22,3 +24,7 @@ export const AddFormDefault = (): AddForm => ({
   approvers: [],
   form_id: 0,
 });
+
+export interface formList extends PaginationDetails {
+  listForms: Form[];
+}

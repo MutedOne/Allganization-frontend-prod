@@ -6,12 +6,12 @@ import { ViewId } from 'src/app/interface/global';
 
 export const getAccounts = createAction(
   '[Account] getAccounts',
-  (pagination: Pagination, viewId: ViewId) => ({ pagination, viewId })
+  (pagination: Pagination, accountId: ViewId) => ({ pagination, accountId })
 );
 
 export const getAccountsSuccess = createAction(
   '[Account] getAccountsSuccess',
-  props<{ data: Account[]; pagination: Pagination }>()
+  props<{ data: Account[]; pagination: Pagination; total: number }>()
 );
 
 export const getAccountsFailure = createAction(

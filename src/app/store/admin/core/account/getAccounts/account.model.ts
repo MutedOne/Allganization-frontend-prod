@@ -3,6 +3,7 @@ import { Pagination } from 'src/app/interface/pagination';
 
 export interface GetAccount {
   data: Account[];
+  total: number;
   pagination: Pagination;
   loading: boolean;
   error: string | null;

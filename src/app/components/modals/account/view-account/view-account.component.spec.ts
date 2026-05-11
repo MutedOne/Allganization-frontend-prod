@@ -74,8 +74,8 @@ describe('ViewAccountComponent', () => {
   it('should display account information', () => {
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
     component.viewAccount();
-    const { pageIndex, search, filter } = defaultPaginationDetails();
-    const paginationDetails = { pageIndex, search, filter };
+    const { currentPage, search, filter } = defaultPaginationDetails();
+    const paginationDetails = { currentPage, search, filter };
     expect(component.positionHistory).toEqual([mockPosition]);
     expect(dispatchSpy).toHaveBeenCalledWith(
       getAccounts(paginationDetails, component.viewId),

@@ -5,6 +5,7 @@ import { Pagination } from 'src/app/interface/pagination';
 
 export interface getApprover {
   data: Approver[];
+  total: number;
   pagination: Pagination;
   loading: boolean;
   error: string | null;

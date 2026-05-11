@@ -1,13 +1,13 @@
 export interface Pagination {
-  pageIndex: number;
+  currentPage: number;
   search: string;
-  filter: string;
+  filter: any;
 }
 
 export const defaultPagination = (): Pagination => ({
-  pageIndex: 1,
+  currentPage: 0,
   search: '',
-  filter: '',
+  filter: {},
 });
 
 export interface Totalpage {
@@ -18,18 +18,18 @@ export const defaultTotal = (): Totalpage => ({
   total: 0,
 });
 
-export interface PaginationDetails<T> {
-  data: T[];
-  pageIndex: number;
+
+
+export interface PaginationDetails {
+  currentPage: number;
   search: string;
-  filter: string;
+  filter: object;
   total: number;
 }
 
-export const defaultPaginationDetails = <T>(): PaginationDetails<T> => ({
-  data: [],
-  pageIndex: 0,
+export const defaultPaginationDetails = {
+  currentPage: 0,
   search: '',
-  filter: '',
+  filter: {},
   total: 0,
-});
+}

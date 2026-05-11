@@ -1,3 +1,4 @@
+import { PaginationDetails } from "../../pagination";
 
 export interface BorrowRequest {
   created_on: Date;
@@ -18,9 +19,19 @@ export const AddBorrowRequestDefault = (): AddBorrowRequest => ({
   form_id: 0,
   purpose: ''
 });
-export interface GetAllBorrowRequest{
-  countApprovers  : number;
+export interface GetAllBorrowRequest {
+  countApprovers: number;
   id: number;
   name: string;
   description: string;
+}
+
+
+export interface requestList extends PaginationDetails {
+  listAssetRequest: BorrowRequest[];
+}
+
+
+export interface completedRequestList extends PaginationDetails {
+  listOfCompletedAssetRequest: BorrowRequest[];
 }

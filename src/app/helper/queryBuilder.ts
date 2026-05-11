@@ -1,14 +1,14 @@
 import { HttpParams } from "@angular/common/http";
 
 export function buildQueryParams(options: {
-    pageIndex?: number;
+    currentPage?: number;
     search?: string;
     filter?: Record<string, any>;
 }) {
     let params = new HttpParams();
 
-    if (options.pageIndex !== undefined) {
-        params = params.set('currentPage', options.pageIndex);
+    if (options.currentPage !== undefined) {
+        params = params.set('currentPage', options.currentPage);
     }
 
     if (options.search) {

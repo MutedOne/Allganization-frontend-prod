@@ -11,6 +11,10 @@ export const selectFormPagination = createSelector(
   selectFormState,
   (state) => state.pagination
 );
+export const selectFormListTotal = createSelector(
+  selectFormState,
+  (state) => state.total
+);
 export const selectFormError = createSelector(
   selectFormState,
   (state) => state.error

@@ -55,7 +55,7 @@ export class FullComponent implements OnInit {
   private isContentWidthFixed = true;
   private isCollapsedWidthFixed = false;
   private htmlElement!: HTMLHtmlElement;
-
+  public test: boolean
   get isOver(): boolean {
     return this.isMobileScreen;
   }
@@ -81,9 +81,11 @@ export class FullComponent implements OnInit {
 
   ngOnInit(): void {
     const isAdmin = sessionStorage.getItem('isAdmin');
+    this.test = true
     this.navService.currentUrl.subscribe((url) => {
       if (url.startsWith('/admin/account')) {
         this.navItems = navAdminAccount;
+        this.test = false
       } else if (url.startsWith('/admin/shop')) {
         this.navItems = navAdminShop;
       } else if (url.startsWith('/admin/borrow')) {
@@ -103,6 +105,8 @@ export class FullComponent implements OnInit {
       }
       this.activatedRoute = this.navItems;
     });
+
+
   }
 
   ngOnDestroy() {

@@ -68,14 +68,14 @@ export class ViewAccountComponent implements OnInit {
   viewId: ViewId = defaultId();
   accountEvaluation: any = [];
   private storeService = inject(Store);
-  constructor(@Inject(MAT_DIALOG_DATA) public data: ViewId) {}
-  paginationRequest: PaginationDetails<Account>;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: ViewId) { }
+  paginationRequest: PaginationDetails;
   isLoading = this.storeService.select(selectAccountLoading);
   allAccounts: Observable<Account[]> = this.storeService.select(selectAccount);
   isLoadingEvaluation: boolean = false;
   ngOnInit(): void {
     this.viewId = this.data;
-    this.paginationRequest = defaultPaginationDetails<Account>();
+    this.paginationRequest = defaultPaginationDetails;
     this.positionService.getViewPosition(this.viewId).subscribe((data) => {
       this.positionHistory = data;
     });
@@ -84,9 +84,9 @@ export class ViewAccountComponent implements OnInit {
   }
 
   viewAccount() {
-    this.paginationRequest.pageIndex = 0;
-    const { pageIndex, search, filter } = this.paginationRequest;
-    const paginationDetails = { pageIndex, search, filter };
+    this.paginationRequest.currentPage = 0;
+    const { currentPage, search, filter } = this.paginationRequest;
+    const paginationDetails = { currentPage, search, filter };
 
     this.storeService.dispatch(getAccounts(paginationDetails, this.viewId));
   }

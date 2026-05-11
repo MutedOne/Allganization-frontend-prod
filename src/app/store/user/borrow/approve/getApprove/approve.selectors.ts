@@ -13,6 +13,10 @@ export const selectApprovedPagination = createSelector(
   selectApprovedState,
   (state) => state.pagination
 );
+export const selectApprovedTotal = createSelector(
+  selectApprovedState,
+  (state) => state.total
+);
 export const selectApprovedLoading = createSelector(
   selectApprovedState,
   (state) => state.loading

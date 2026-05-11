@@ -19,9 +19,10 @@ export const approveRequestReducer = createReducer(
     error: null,
   })),
 
-  on(getApproveRequestSuccess, (state, { data, pagination }) => ({
+  on(getApproveRequestSuccess, (state, { data, pagination, total }) => ({
     ...state,
     data: data,
+    total: total,
     pagination: pagination,
     loading: false,
     error: null,

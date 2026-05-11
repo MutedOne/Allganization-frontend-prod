@@ -12,6 +12,10 @@ export const selectAccountPagination = createSelector(
   selectAccountState,
   (state) => state.pagination
 );
+export const selectTotalAccount = createSelector(
+  selectAccountState,
+  (state) => state.total
+);
 export const selectAccountError = createSelector(
   selectAccountState,
   (state) => state.error

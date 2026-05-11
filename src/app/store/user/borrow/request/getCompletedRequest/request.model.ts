@@ -3,7 +3,7 @@ import { Pagination } from 'src/app/interface/pagination';
 
 export interface getBorrowRequest {
   data: BorrowRequest[];
-
+  total: number;
   pagination: Pagination;
   loading: boolean;
   error: string | null;

@@ -35,8 +35,8 @@ import {
   selectAccount,
   selectAccountLoading,
   selectAccountPagination,
+  selectTotalAccount,
 } from 'src/app/store/admin/core/account/getAccounts/account.selectors';
-import { selectTotalAccounts } from 'src/app/store/admin/core/account/getTotalAccounts/accountTotal.selectors';
 import { getAccounts } from 'src/app/store/admin/core/account/getAccounts/account.actions';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
@@ -69,16 +69,17 @@ export class ListAccountComponent implements OnInit {
   paginationDetailstest: Observable<any> = this.storeService.select(
     selectAccountPagination,
   );
-  // totalAccounts: Observable<number> =
-  //   this.storeService.select(selectTotalAccounts);
-  paginationRequest: PaginationDetails<Account>;
+  totalListAccount: Observable<any> = this.storeService.select(
+    selectTotalAccount,
+  );
+  paginationRequest: PaginationDetails;
 
   displayTitle: string[] = ['assigned', 'status', 'action'];
   viewId: ViewId = defaultId();
   readonly dialog = inject(MatDialog);
 
   ngOnInit(): void {
-    this.paginationRequest = defaultPaginationDetails<Account>();
+    this.paginationRequest = defaultPaginationDetails;
   }
   openEditUser(id: number) {
     this.viewId = { id: id };
@@ -97,9 +98,9 @@ export class ListAccountComponent implements OnInit {
   }
 
   pageEvent(event: any) {
-    this.paginationRequest.pageIndex = event.pageIndex;
-    const { pageIndex, search, filter } = this.paginationRequest;
-    const paginationDetails = { pageIndex, search, filter };
+    this.paginationRequest.currentPage = event.currentPage;
+    const { currentPage, search, filter } = this.paginationRequest;
+    const paginationDetails = { currentPage, search, filter };
 
     this.storeService.dispatch(getAccounts(paginationDetails, this.viewId));
   }

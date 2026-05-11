@@ -13,6 +13,10 @@ export const selectPositionPagination = createSelector(
   selectPositionState,
   (state) => state.pagination
 );
+export const selectPositionTotal = createSelector(
+  selectPositionState,
+  (state) => state.total
+);
 export const selectPositionError = createSelector(
   selectPositionState,
   (state) => state.error

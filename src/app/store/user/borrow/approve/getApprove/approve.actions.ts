@@ -14,7 +14,7 @@ export const getApproveRequest = createAction(
 
 export const getApproveRequestSuccess = createAction(
   '[Approve Request] getApproveRequestSuccess',
-  props<{ data: ApproveRequest[]; pagination: Pagination }>()
+  props<{ data: ApproveRequest[]; pagination: Pagination; total: number }>()
 );
 
 export const getApproveRequestFailure = createAction(

@@ -81,9 +81,9 @@ export class AddApproverComponent {
   private accountService = inject(AccountService);
 
   viewId: ViewId = defaultId();
-  constructor(private fb: FormBuilder) {}
-  paginationRequestForm: PaginationDetails<Form>;
-  paginationRequestAccount: PaginationDetails<Account>;
+  constructor(private fb: FormBuilder) { }
+  paginationRequestForm: PaginationDetails;
+  paginationRequestAccount: PaginationDetails;
   optionsAccount: Account[][] = [];
   options: Form[] = [];
   filteredOptionstest: { [key: number]: Observable<any[]> } = {};
@@ -96,8 +96,8 @@ export class AddApproverComponent {
   storeService = inject(Store);
   allAccount: Account[] = [];
   ngOnInit(): void {
-    this.paginationRequestForm = defaultPaginationDetails<Form>();
-    this.paginationRequestAccount = defaultPaginationDetails<Account>();
+    this.paginationRequestForm = defaultPaginationDetails;
+    this.paginationRequestAccount = defaultPaginationDetails;
     this.validate();
     this.initialAccount();
     this.getIDform();
@@ -131,11 +131,11 @@ export class AddApproverComponent {
       distinctUntilChanged(),
       switchMap((searchTerm) => {
         this.paginationRequestForm.search = searchTerm;
-        this.paginationRequestForm.filter = 'unused';
-        const { search, pageIndex, filter } = this.paginationRequestForm;
+        // this.paginationRequestForm.filter = 'unused';
+        const { search, currentPage, filter } = this.paginationRequestForm;
 
         this.storeService.dispatch(
-          getForms({ search, pageIndex, filter }, this.viewId),
+          getForms({ search, currentPage, filter }, this.viewId),
         );
         return this.storeService.select(selectForm);
       }),
@@ -179,38 +179,38 @@ export class AddApproverComponent {
 
   private getAllAccounts() {
     console.log(this.allAccount);
-    for (let i = 0; i < this.approvers.length; i++) {
-      this.filteredOptionstest[i] = this.approvers.at(i).valueChanges.pipe(
-        startWith(''),
-        debounceTime(500),
-        distinctUntilChanged(),
-        switchMap((searchTerm) => {
-          const requestParams = {
-            ...this.paginationRequestAccount,
-            search: (searchTerm as string) || '',
-          };
-          if (searchTerm != '') {
-            return this.accountService.getAllAccount(
-              requestParams,
-              this.viewId,
-            );
-          } else {
-            return of(this.allAccount);
-          }
-        }),
-        tap((val) => {
-          if (val.length == 1) {
-            this.addFormDetails.approvers[i] = val[0].id;
-          } else {
-            this.addFormDetails.approvers[i] = 0;
-            this.approvers.at(i)?.setErrors({ require: true });
-            this.approvers.at(i)?.markAsTouched();
-          }
+    // for (let i = 0; i < this.approvers.length; i++) {
+    //   this.filteredOptionstest[i] = this.approvers.at(i).valueChanges.pipe(
+    //     startWith(''),
+    //     debounceTime(500),
+    //     distinctUntilChanged(),
+    //     switchMap((searchTerm) => {
+    //       const requestParams = {
+    //         ...this.paginationRequestAccount,
+    //         search: (searchTerm as string) || '',
+    //       };
+    //       if (searchTerm != '') {
+    //         return this.accountService.getAllAccount(
+    //           requestParams,
+    //           this.viewId,
+    //         );
+    //       } else {
+    //         return of(this.allAccount);
+    //       }
+    //     }),
+    //     tap((val) => {
+    //       if (val.length == 1) {
+    //         this.addFormDetails.approvers[i] = val[0].id;
+    //       } else {
+    //         this.addFormDetails.approvers[i] = 0;
+    //         this.approvers.at(i)?.setErrors({ require: true });
+    //         this.approvers.at(i)?.markAsTouched();
+    //       }
 
-          return val;
-        }),
-      );
-    }
+    //       return val;
+    //     }),
+    //   );
+    // }
   }
 
   onSubmit() {

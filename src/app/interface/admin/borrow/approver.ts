@@ -1,3 +1,5 @@
+import { PaginationDetails } from "../../pagination";
+
 export interface Approver {
   form_name: string;
   form_id: number;
@@ -36,3 +38,12 @@ export const AddApproverDefault = (): AddApprover => ({
   form_id: 0,
   approvers: [],
 });
+
+
+export interface approverList extends PaginationDetails {
+  listApprover: Approver[];
+}
+
+export interface approveRequestList extends PaginationDetails {
+  listOfApprovalRequest: ApproveRequest[];
+}

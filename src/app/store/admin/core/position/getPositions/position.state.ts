@@ -3,6 +3,7 @@ import { GetPosition } from './position.model';
 
 export const initialState: GetPosition = {
   data: [],
+  total: 0,
   pagination: defaultPagination(),
   loading: false,
   error: null,

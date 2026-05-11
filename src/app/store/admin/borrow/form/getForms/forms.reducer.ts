@@ -15,9 +15,10 @@ export const formsReducer = createReducer(
     error: null,
   })),
 
-  on(getFormsSuccess, (state, { data, pagination }) => ({
+  on(getFormsSuccess, (state, { data, pagination, total }) => ({
     ...state,
     data: data,
+    total: total,
     pagination: pagination,
     loading: false,
     error: null,

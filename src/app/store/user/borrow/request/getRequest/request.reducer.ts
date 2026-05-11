@@ -14,14 +14,16 @@ export const borrowRequestReducer = createReducer(
   on(getBorrowRequest, (state) => ({
     ...state,
     data: [],
+    total: 0,
     pagination: defaultPagination(),
     loading: true,
     error: null,
   })),
 
-  on(getBorrowRequestSuccess, (state, { data, pagination }) => ({
+  on(getBorrowRequestSuccess, (state, { data, pagination, total }) => ({
     ...state,
     data: data,
+    total: total,
     pagination: pagination,
     loading: false,
     error: null,

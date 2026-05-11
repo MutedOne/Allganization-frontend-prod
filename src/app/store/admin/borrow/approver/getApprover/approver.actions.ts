@@ -12,7 +12,7 @@ export const getApprover = createAction(
 
 export const getApproverSuccess = createAction(
   '[Approver] getApproverSuccess',
-  props<{ data: Approver[]; pagination: Pagination }>()
+  props<{ data: Approver[]; pagination: Pagination; total: number }>()
 );
 
 export const getApproverFailure = createAction(

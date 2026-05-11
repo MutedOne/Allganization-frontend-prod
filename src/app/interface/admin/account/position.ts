@@ -1,3 +1,5 @@
+import { PaginationDetails } from "../../pagination";
+
 export interface AddPosition {
   id: number;
   level: number;
@@ -26,4 +28,8 @@ export interface ViewPosition {
   position: string;
   department: string;
   quantity: number;
+}
+
+export interface PositionList extends PaginationDetails {
+  listPosition: Position[];
 }

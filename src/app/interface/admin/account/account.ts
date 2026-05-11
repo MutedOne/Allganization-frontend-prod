@@ -1,3 +1,5 @@
+import { PaginationDetails } from "../../pagination";
+
 export interface Account {
   account_history_id: number;
   department: string;
@@ -25,3 +27,7 @@ export const AddAccountDefault = (): AddAccount => ({
   department_id: 0,
   isAdmin: false,
 });
+
+export interface AccountList extends PaginationDetails {
+  listAccount: Account[];
+}

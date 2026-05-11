@@ -1,9 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ApproveRequest } from 'src/app/interface/admin/borrow/approver';
+import { buildQueryParams } from 'src/app/helper/queryBuilder';
+import { ApproveRequest, approveRequestList, approverList } from 'src/app/interface/admin/borrow/approver';
 import {
   AddBorrowRequest,
   BorrowRequest,
+  completedRequestList,
+  requestList,
 } from 'src/app/interface/admin/borrow/borrow';
 import { Message, ViewId } from 'src/app/interface/global';
 import { Pagination, Totalpage } from 'src/app/interface/pagination';
@@ -21,44 +24,28 @@ export class RequestService {
     );
   }
   getAllRequests(pagination: Pagination, viewId: ViewId) {
-    const { pageIndex, search, filter } = pagination;
-    const params = new HttpParams({
-      fromObject: {
-        filter,
-        pageIndex,
-        search,
-        ...viewId,
-      },
+    const { currentPage, search, filter } = pagination;
+    const params = buildQueryParams({
+      currentPage: currentPage,
+      search: search,
+      filter: {
+      }
     });
-    return this.http.get<BorrowRequest[]>(
+    return this.http.get<requestList>(
       `${environment.apiURL}/user/borrow/request`,
       { params },
     );
   }
-  getTotalRequest(viewId: ViewId) {
-    const params = new HttpParams({
-      fromObject: {
-        ...viewId,
-      },
-    });
-    return this.http.get<Totalpage[]>(
-      `${environment.apiURL}/user/borrow/request/total`,
-      {
-        params,
-      },
-    );
-  }
+
   getAllCompletedRequests(pagination: Pagination, viewId: ViewId) {
-    const { pageIndex, search, filter } = pagination;
-    const params = new HttpParams({
-      fromObject: {
-        filter,
-        pageIndex,
-        search,
-        ...viewId,
-      },
+    const { currentPage, search } = pagination;
+    const params = buildQueryParams({
+      currentPage: currentPage,
+      search: search,
+      filter: {
+      }
     });
-    return this.http.get<BorrowRequest[]>(
+    return this.http.get<completedRequestList>(
       `${environment.apiURL}/user/borrow/request/completed`,
       { params },
     );
@@ -77,15 +64,14 @@ export class RequestService {
     );
   }
   approveListRequest(pagination: Pagination, viewId: ViewId) {
-    const { pageIndex, search } = pagination;
-    const params = new HttpParams({
-      fromObject: {
-        pageIndex,
-        search,
-        ...viewId,
-      },
+    const { currentPage, search } = pagination;
+    const params = buildQueryParams({
+      currentPage: currentPage,
+      search: search,
+      filter: {
+      }
     });
-    return this.http.get<ApproveRequest[]>(
+    return this.http.get<approveRequestList>(
       `${environment.apiURL}/user/borrow/request/approved`,
       { params },
     );

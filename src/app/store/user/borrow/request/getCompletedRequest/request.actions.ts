@@ -11,7 +11,7 @@ export const BorrowRequestCompleted = createAction(
 
 export const BorrowRequestCompletedSuccess = createAction(
   '[Borrow Request] BorrowRequestCompletedSuccess',
-  props<{ data: BorrowRequest[]; pagination: Pagination }>(),
+  props<{ data: BorrowRequest[]; pagination: Pagination, total: number }>(),
 );
 
 export const BorrowRequestCompletedFailure = createAction(

@@ -36,9 +36,8 @@ import {
   selectApprover,
   selectApproverLoading,
   selectApproverPagination,
+  selectListApproverTotal,
 } from 'src/app/store/admin/borrow/approver/getApprover/approver.selectors';
-import { getTotalApprovers } from 'src/app/store/admin/borrow/approver/getTotalApprover/approverTotal.actions';
-import { selectTotalApprovers } from 'src/app/store/admin/borrow/approver/getTotalApprover/approverTotal.selectors';
 @Component({
   selector: 'app-admin-approvers',
   imports: [
@@ -66,34 +65,30 @@ export class AdminApproversComponent implements OnInit {
   viewId: ViewId = defaultId();
 
   private approverService = inject(ApproversService);
-  paginationRequest: PaginationDetails<Approver>;
+  paginationRequest: PaginationDetails;
   readonly dialog = inject(MatDialog);
 
   storeService = inject(Store);
   allApprover = this.storeService.select(selectApprover);
-  allApproverTotal = this.storeService.select(selectTotalApprovers);
+  allApproverTotal = this.storeService.select(selectListApproverTotal);
   pagination = this.storeService.select(selectApproverPagination);
   isLoading = this.storeService.select(selectApproverLoading);
   ngOnInit(): void {
-    this.paginationRequest = defaultPaginationDetails<Approver>();
+    this.paginationRequest = defaultPaginationDetails;
     this.getAllApprover();
-    this.getTotalApprover();
   }
   getAllApprover() {
-    const { pageIndex, search, filter } = this.paginationRequest;
-    const paginationDetails = { pageIndex, search, filter };
+    const { currentPage, search, filter } = this.paginationRequest;
+    const paginationDetails = { currentPage, search, filter };
     this.storeService.dispatch(getApprover(paginationDetails, this.viewId));
-  }
-  getTotalApprover() {
-    this.storeService.dispatch(getTotalApprovers(this.viewId));
   }
   pageEvent(event: any) {
     const { search, filter } = this.paginationRequest;
-    const pageIndex = event.pageIndex;
-    const paginationDetails = { pageIndex, search, filter };
+    const currentPage = event.currentPage;
+    const paginationDetails = { currentPage, search, filter };
     this.storeService.dispatch(getApprover(paginationDetails, this.viewId));
   }
-  openViewApprovers(detail: any) {}
+  openViewApprovers(detail: any) { }
   openAddApprover() {
     const dialogRef = this.dialog.open(AddApproverComponent);
 

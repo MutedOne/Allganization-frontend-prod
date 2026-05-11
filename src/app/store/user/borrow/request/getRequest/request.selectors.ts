@@ -13,6 +13,14 @@ export const selectBorrowPagination = createSelector(
   selectBorrowState,
   (state) => state.pagination
 );
+export const selectBorrowTotal = createSelector(
+  selectBorrowState,
+  (state) => state.total
+);
+export const selectBorrowLoading = createSelector(
+  selectBorrowState,
+  (state) => state.loading
+);
 export const selectBorrowError = createSelector(
   selectBorrowState,
   (state) => state.error

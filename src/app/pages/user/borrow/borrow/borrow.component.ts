@@ -12,37 +12,26 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { Store } from '@ngrx/store';
-import { AddAccountComponent } from 'src/app/components/modals/account/add-account/add-account.component';
-
 import { ViewAccountComponent } from 'src/app/components/modals/account/view-account/view-account.component';
-import { AddApproverComponent } from 'src/app/components/modals/borrow/forms/add-approver/add-approver.component';
-import { AddFormsComponent } from 'src/app/components/modals/borrow/forms/add-forms/add-forms.component';
 import { AddRequestComponent } from 'src/app/components/modals/borrow/request/add-request/add-request.component';
-import { BorrowRequest } from 'src/app/interface/admin/borrow/borrow';
+
 import { defaultId, ViewId } from 'src/app/interface/global';
 import {
-  defaultPagination,
   defaultPaginationDetails,
-  defaultTotal,
-  Pagination,
+
   PaginationDetails,
-  Totalpage,
+
 } from 'src/app/interface/pagination';
 import { MaterialModule } from 'src/app/material.module';
-import { AccountService } from 'src/app/services/admin/account/account.service';
-import { ApproversService } from 'src/app/services/admin/borrow/approvers.service';
-import { FormsService } from 'src/app/services/admin/borrow/forms.service';
-import { RequestService } from 'src/app/services/user/borrow/request.service';
+
 import { getBorrowRequest } from 'src/app/store/user/borrow/request/getRequest/request.actions';
 import {
   selectBorrow,
+  selectBorrowLoading,
   selectBorrowPagination,
-} from 'src/app/store/user/borrow/request/getRequest/request.selectors';
-import { getTotalBorrow } from 'src/app/store/user/borrow/request/getTotalRequest/requestTotal.action';
-import {
   selectBorrowTotal,
-  selectBorrowTotalLoading,
-} from 'src/app/store/user/borrow/request/getTotalRequest/requestTotal.selectors';
+} from 'src/app/store/user/borrow/request/getRequest/request.selectors';
+
 
 @Component({
   selector: 'app-borrow',
@@ -66,7 +55,7 @@ import {
   styleUrl: './borrow.component.scss',
 })
 export class BorrowComponent {
-  paginationRequest: PaginationDetails<BorrowRequest>;
+  paginationRequest: PaginationDetails;
   displayTitle = [
     'Form',
     'Purpose',
@@ -80,30 +69,27 @@ export class BorrowComponent {
 
   readonly dialog = inject(MatDialog);
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) { }
   storeService = inject(Store);
   allRequest = this.storeService.select(selectBorrow);
   pagination = this.storeService.select(selectBorrowPagination);
   totalRequest = this.storeService.select(selectBorrowTotal);
-  isLoading = this.storeService.select(selectBorrowTotalLoading);
+  isLoading = this.storeService.select(selectBorrowLoading);
   ngOnInit(): void {
-    this.paginationRequest = defaultPaginationDetails<BorrowRequest>();
+    this.paginationRequest = defaultPaginationDetails;
 
     this.getAllRequests();
-    this.getTotalRequest();
   }
   getAllRequests() {
-    const { pageIndex, search, filter } = this.paginationRequest;
-    const paginationDetails = { pageIndex, search, filter };
+    const { currentPage, search, filter } = this.paginationRequest;
+    const paginationDetails = { currentPage, search, filter };
 
     this.storeService.dispatch(
       getBorrowRequest(paginationDetails, this.viewId),
     );
   }
-  getTotalRequest() {
-    this.storeService.dispatch(getTotalBorrow(this.viewId));
-  }
-  openViewDepartment(detail: any) {}
+
+  openViewDepartment(detail: any) { }
   openAddUser() {
     const dialogRef = this.dialog.open(AddRequestComponent);
 
@@ -113,8 +99,8 @@ export class BorrowComponent {
   }
   pageEvent(event: any) {
     const { search, filter } = this.paginationRequest;
-    const pageIndex = event.pageIndex;
-    const paginationDetails = { pageIndex, search, filter };
+    const currentPage = event.currentPage;
+    const paginationDetails = { currentPage, search, filter };
     this.storeService.dispatch(
       getBorrowRequest(paginationDetails, this.viewId),
     );

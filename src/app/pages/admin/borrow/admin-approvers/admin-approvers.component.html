@@ -101,7 +101,7 @@
         [pageSize]="10"
         [pageSizeOptions]="[5, 10, 25, 100]"
         (page)="pageEvent($event)"
-        [pageIndex]="pagination.pageIndex"
+        [pageIndex]="pagination.currentPage"
         aria-label="Select page"
       >
       </mat-paginator>

@@ -14,16 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { delay, tap } from 'rxjs';
-import { AddAccountComponent } from 'src/app/components/modals/account/add-account/add-account.component';
 
-import { ViewAccountComponent } from 'src/app/components/modals/account/view-account/view-account.component';
-import { AddApproverComponent } from 'src/app/components/modals/borrow/forms/add-approver/add-approver.component';
-import { AddFormsComponent } from 'src/app/components/modals/borrow/forms/add-forms/add-forms.component';
-import { AddRequestComponent } from 'src/app/components/modals/borrow/request/add-request/add-request.component';
-import {
-  Approver,
-  ApproveRequest,
-} from 'src/app/interface/admin/borrow/approver';
 import { defaultId, ViewId } from 'src/app/interface/global';
 import {
   defaultPagination,
@@ -34,18 +25,14 @@ import {
   Totalpage,
 } from 'src/app/interface/pagination';
 import { MaterialModule } from 'src/app/material.module';
-import { AccountService } from 'src/app/services/admin/account/account.service';
-import { ApproversService } from 'src/app/services/admin/borrow/approvers.service';
-import { FormsService } from 'src/app/services/admin/borrow/forms.service';
 import { RequestService } from 'src/app/services/user/borrow/request.service';
 import { getApproveRequest } from 'src/app/store/user/borrow/approve/getApprove/approve.actions';
 import {
   selectApproved,
   selectApprovedLoading,
   selectApprovedPagination,
+  selectApprovedTotal,
 } from 'src/app/store/user/borrow/approve/getApprove/approve.selectors';
-import { getTotalApprove } from 'src/app/store/user/borrow/approve/getTotalApprove/approveTotal.actions';
-import { selectApprovedTotal } from 'src/app/store/user/borrow/approve/getTotalApprove/approveTotal.selectors';
 
 @Component({
   selector: 'app-approve-request',
@@ -74,7 +61,7 @@ export class ApproveRequestComponent {
   viewId: ViewId = defaultId();
 
   private requestService = inject(RequestService);
-  paginationRequest: PaginationDetails<ApproveRequest>;
+  paginationRequest: PaginationDetails;
 
   readonly dialog = inject(MatDialog);
 
@@ -83,26 +70,23 @@ export class ApproveRequestComponent {
   totalApprovedRequest = this.storeService.select(selectApprovedTotal);
   isLoading = this.storeService.select(selectApprovedLoading);
   pagination = this.storeService.select(selectApprovedPagination);
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
   ngOnInit(): void {
-    this.paginationRequest = defaultPaginationDetails<ApproveRequest>();
+    this.paginationRequest = defaultPaginationDetails;
     this.getApproveListRequest();
-    this.getTotalApproveListRequest();
     this.totalApprovedRequest.subscribe((data) => {
       console.log(data);
     });
   }
   getApproveListRequest() {
-    const { pageIndex, search, filter } = this.paginationRequest;
-    const paginationDetails = { pageIndex, search, filter };
+    const { currentPage, search, filter } = this.paginationRequest;
+    const paginationDetails = { currentPage, search, filter };
     this.storeService.dispatch(
       getApproveRequest(paginationDetails, this.viewId),
     );
   }
-  getTotalApproveListRequest() {
-    this.storeService.dispatch(getTotalApprove(this.viewId));
-  }
-  openViewRequest(detail: any) {}
+
+  openViewRequest(detail: any) { }
 
   approveRequest(detail: any) {
     this.requestService
@@ -123,8 +107,8 @@ export class ApproveRequestComponent {
 
   pageEvent(event: any) {
     const { search, filter } = this.paginationRequest;
-    const pageIndex = event.pageIndex;
-    const paginationDetails = { pageIndex, search, filter };
+    const currentPage = event.currentPage;
+    const paginationDetails = { currentPage, search, filter };
     this.storeService.dispatch(
       getApproveRequest(paginationDetails, this.viewId),
     );

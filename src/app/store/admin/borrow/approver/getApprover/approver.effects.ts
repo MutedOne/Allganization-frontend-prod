@@ -23,12 +23,15 @@ export class ApproverEffects {
         this.approverService
           .getAllApprover(action.pagination, action.viewId)
           .pipe(
-            map((response) =>
-              getApproverSuccess({
-                data: response,
-                pagination: action.pagination,
+            map((response) => {
+              const { listApprover, total, ...pagination } = response
+
+              return getApproverSuccess({
+                data: response.listApprover,
+                total: response.total,
+                pagination: pagination,
               })
-            ),
+            }),
 
             catchError((error: any) => {
               return of(getApproverFailure({ error: error.error.message }));

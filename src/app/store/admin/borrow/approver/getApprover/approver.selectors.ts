@@ -12,6 +12,10 @@ export const selectApproverPagination = createSelector(
   selectApproverState,
   (state) => state.pagination
 );
+export const selectListApproverTotal = createSelector(
+  selectApproverState,
+  (state) => state.total
+);
 export const selectApproverError = createSelector(
   selectApproverState,
   (state) => state.error
