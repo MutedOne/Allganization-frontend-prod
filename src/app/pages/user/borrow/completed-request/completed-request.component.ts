@@ -32,9 +32,6 @@ import {
   selectBorrowCompletedPagination,
   selectBorrowCompletedtotal,
 } from 'src/app/store/user/borrow/request/getCompletedRequest/request.selectors';
-
-
-
 @Component({
   selector: 'app-completed-request',
   imports: [
@@ -50,7 +47,7 @@ import {
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    AsyncPipe,
+    // AsyncPipe,
     MatProgressSpinnerModule,
   ],
   templateUrl: './completed-request.component.html',

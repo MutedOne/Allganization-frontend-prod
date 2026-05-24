@@ -3,13 +3,7 @@
     <mat-card-title class="m-b-0">Uploaded form</mat-card-title>
   </mat-card-header>
   <div class="pdf-fullscreen">
-    <!-- <ng2-pdfjs-viewer
-      [pdfSrc]="pdfUrl"
-      (onDocumentLoad)="onDocumentLoad()"
-      (onDocumentError)="onDocumentError($event)"
-      (pageRendered)="onPageRendered($event)"
-      (click)="onPdfClick($event)"
-    >
-    </ng2-pdfjs-viewer> -->
+    <ng2-pdfjs-viewer [pdfSrc]="pdfUrl">
+    </ng2-pdfjs-viewer>
   </div>
 </mat-card>

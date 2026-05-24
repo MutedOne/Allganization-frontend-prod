@@ -46,12 +46,12 @@ import { degrees, PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 })
 export class AddFormsComponent {
   formsForm!: FormGroup;
-  pdfUrl: SafeResourceUrl | null = null;
+  pdfUrl: SafeResourceUrl | null = '';
   storeService = inject(Store);
   constructor(
     private fb: FormBuilder,
     private sanitizer: DomSanitizer,
-  ) {}
+  ) { }
   readonly dialog = inject(MatDialog);
   ngOnInit(): void {
     this.validate();

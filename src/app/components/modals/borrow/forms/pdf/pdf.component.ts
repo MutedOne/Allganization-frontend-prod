@@ -17,12 +17,13 @@ export class PdfComponent implements AfterViewInit, OnInit {
     private dialogRef: MatDialogRef<PdfComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private sanitizer: DomSanitizer,
-  ) {}
+  ) { }
   totalSignatures: number = this.data.fapprovers;
-  pdfUrl: SafeResourceUrl | null = this.data.file;
+  pdfUrl!: string;
   countSignature: string[] = [];
 
   ngOnInit(): void {
+    this.pdfUrl = this.data.file;
     console.log(this.data.file);
   }
   ngAfterViewInit() {
