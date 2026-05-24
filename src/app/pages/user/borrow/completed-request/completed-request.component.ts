@@ -80,6 +80,7 @@ export class CompletedRequestComponent {
       BorrowRequestCompleted(paginationDetails, this.viewId),
     );
   }
+
   downloadPDFRequest(request: any) {
     this.formsService
       .getDownloadPDFForm(request)
@@ -93,8 +94,9 @@ export class CompletedRequestComponent {
         const placedSignature = JSON.parse(
           `[${data.placedSignature.slice(1, -1)}]`,
         );
+        const requestorAndApproverDetails = [...data.requestorDetail, ...data.approveDetails]
 
-        data.approveDetails.forEach((approver: any, index: number) => {
+        requestorAndApproverDetails.forEach((approver: any, index: number) => {
           const { x, y } = placedSignature[index];
           Object.values(approver).forEach((value, index2) => {
             firstPage.drawText(`${value}`, {
@@ -113,7 +115,7 @@ export class CompletedRequestComponent {
         // 3. Create a link element and trigger the download
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = data.filename;
+        link.download = data.fileName;
         link.click();
 
         // 4. Clean up the URL object to free up memory

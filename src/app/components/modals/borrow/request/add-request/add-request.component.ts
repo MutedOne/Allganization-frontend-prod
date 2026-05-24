@@ -98,13 +98,11 @@ export class AddRequestComponent {
       debounceTime(500),
       distinctUntilChanged(),
       switchMap((searchTerm) => {
-        this.paginationRequest.search = searchTerm;
+        const { currentPage, filter } = this.paginationRequest;
+        const paginationDetails = { currentPage, search: searchTerm, filter };
 
-        const { search, currentPage, filter } = this.paginationRequest;
+        this.storeService.dispatch(getForms(paginationDetails, this.viewId));
 
-        this.storeService.dispatch(
-          getForms({ search, currentPage, filter }, this.viewId),
-        );
         return this.storeService.select(selectForm);
       }),
       tap((val) => {

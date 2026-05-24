@@ -90,10 +90,12 @@ export class AddApproverComponent {
   filteredOptions: Observable<any[]>;
   isChanged: boolean;
 
+
   addFormDetails: any = AddFormDefault();
   isKeypress: boolean = false;
 
   storeService = inject(Store);
+  allAccounts: Observable<Account[]> = this.storeService.select(selectAccount);
   allAccount: Account[] = [];
   ngOnInit(): void {
     this.paginationRequestForm = defaultPaginationDetails;
@@ -130,12 +132,11 @@ export class AddApproverComponent {
       debounceTime(500),
       distinctUntilChanged(),
       switchMap((searchTerm) => {
-        this.paginationRequestForm.search = searchTerm;
-        // this.paginationRequestForm.filter = 'unused';
-        const { search, currentPage, filter } = this.paginationRequestForm;
 
+        const { currentPage, filter } = this.paginationRequestForm;
+        const paginationDetails = { currentPage, search: searchTerm, filter };
         this.storeService.dispatch(
-          getForms({ search, currentPage, filter }, this.viewId),
+          getForms(paginationDetails, this.viewId),
         );
         return this.storeService.select(selectForm);
       }),
@@ -178,39 +179,37 @@ export class AddApproverComponent {
   }
 
   private getAllAccounts() {
-    console.log(this.allAccount);
-    // for (let i = 0; i < this.approvers.length; i++) {
-    //   this.filteredOptionstest[i] = this.approvers.at(i).valueChanges.pipe(
-    //     startWith(''),
-    //     debounceTime(500),
-    //     distinctUntilChanged(),
-    //     switchMap((searchTerm) => {
-    //       const requestParams = {
-    //         ...this.paginationRequestAccount,
-    //         search: (searchTerm as string) || '',
-    //       };
-    //       if (searchTerm != '') {
-    //         return this.accountService.getAllAccount(
-    //           requestParams,
-    //           this.viewId,
-    //         );
-    //       } else {
-    //         return of(this.allAccount);
-    //       }
-    //     }),
-    //     tap((val) => {
-    //       if (val.length == 1) {
-    //         this.addFormDetails.approvers[i] = val[0].id;
-    //       } else {
-    //         this.addFormDetails.approvers[i] = 0;
-    //         this.approvers.at(i)?.setErrors({ require: true });
-    //         this.approvers.at(i)?.markAsTouched();
-    //       }
 
-    //       return val;
-    //     }),
-    //   );
-    // }
+    for (let i = 0; i < this.approvers.length; i++) {
+      this.filteredOptionstest[i] = this.approvers.at(i).valueChanges.pipe(
+        startWith(''),
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap((searchTerm) => {
+          const { currentPage, filter } = this.paginationRequestAccount;
+          const paginationDetaildas = { currentPage, search: String(searchTerm), filter };
+
+          // if (searchTerm != '') {
+
+          //   return this.storeService.dispatch(getAccounts(paginationDetaildas, this.viewId));
+          // } else {
+          return of(this.allAccount);
+          // }
+        }),
+        tap((val) => {
+          this.addFormDetails.approvers[i] = val[0].id;
+          // if (val.length == 1) {
+          //   this.addFormDetails.approvers[i] = val[0].id;
+          // } else {
+          //   this.addFormDetails.approvers[i] = 0;
+          //   this.approvers.at(i)?.setErrors({ require: true });
+          //   this.approvers.at(i)?.markAsTouched();
+          // }
+
+          return val;
+        }),
+      );
+    }
   }
 
   onSubmit() {
