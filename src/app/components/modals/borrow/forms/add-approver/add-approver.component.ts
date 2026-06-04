@@ -186,32 +186,26 @@ export class AddApproverComponent {
         debounceTime(500),
         distinctUntilChanged(),
         switchMap((searchTerm) => {
+          if (typeof searchTerm !== 'string' || searchTerm === '') {
+            return of(this.allAccount);
+          }
           const { currentPage, filter } = this.paginationRequestAccount;
-          const paginationDetaildas = { currentPage, search: String(searchTerm), filter };
-
-          // if (searchTerm != '') {
-
-          //   return this.storeService.dispatch(getAccounts(paginationDetaildas, this.viewId));
-          // } else {
-          return of(this.allAccount);
-          // }
-        }),
-        tap((val) => {
-          this.addFormDetails.approvers[i] = val[0].id;
-          // if (val.length == 1) {
-          //   this.addFormDetails.approvers[i] = val[0].id;
-          // } else {
-          //   this.addFormDetails.approvers[i] = 0;
-          //   this.approvers.at(i)?.setErrors({ require: true });
-          //   this.approvers.at(i)?.markAsTouched();
-          // }
-
-          return val;
-        }),
+          this.storeService.dispatch(getAccounts({ currentPage, search: searchTerm, filter }, this.viewId));
+          return this.storeService.select(selectAccount);
+        })
       );
     }
   }
 
+  onFormSelected(event: any, index: number) {
+    const approvers = [...this.addFormDetails.approvers];
+    approvers[index] = event;
+
+    this.addFormDetails = {
+      ...this.addFormDetails,
+      approvers,
+    };
+  }
   onSubmit() {
     if (this.addApproverForm.valid) {
       this.storeService.dispatch(addApprover(this.addFormDetails));

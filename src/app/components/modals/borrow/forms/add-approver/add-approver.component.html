@@ -8,14 +8,8 @@
         <div class="col-12">
           <mat-label class="f-w-600 m-b-8 d-block">Forms</mat-label>
           <mat-form-field appearance="outline" class="w-100">
-            <input
-              type="text"
-              placeholder="Choose form"
-              aria-label="Number"
-              matInput
-              formControlName="form_id"
-              [matAutocomplete]="autoForm"
-            />
+            <input type="text" placeholder="Choose form" aria-label="Number" matInput formControlName="form_id"
+              [matAutocomplete]="autoForm" />
             <mat-autocomplete autoActiveFirstOption #autoForm="matAutocomplete">
               @for (option of filteredOptions | async; track option) {
               <mat-option [value]="option.name">{{ option.name }}</mat-option>
@@ -30,27 +24,15 @@
           @if(approvers.controls.length == 0){
 
           <mat-form-field appearance="outline" class="w-100 hideWhenEmpty">
-            <input
-              type="text"
-              placeholder="Choose form"
-              aria-label="Number"
-              matInput
-              class="w-100 d-block"
-            />
+            <input type="text" placeholder="Choose form" aria-label="Number" matInput class="w-100 d-block" />
           </mat-form-field>
           } @for (approver of approvers.controls; track $index; let idx =
           $index) {
           <mat-form-field appearance="outline" class="w-100 d-block">
-            <input
-              type="text"
-              placeholder="Choose form"
-              aria-label="Number"
-              matInput
-              [formControlName]="idx"
-              [matAutocomplete]="autoAccount"
-            />
+            <input type="text" placeholder="Choose form" aria-label="Number" matInput [formControlName]="idx"
+              [matAutocomplete]="autoAccount" />
 
-            <mat-autocomplete #autoAccount="matAutocomplete">
+            <mat-autocomplete #autoAccount="matAutocomplete" (optionSelected)="onFormSelected($event.option.value,idx)">
               @for (option of filteredOptionstest[idx] | async; track option.id)
               {
               <mat-option [value]="option.name">
@@ -64,13 +46,7 @@
       </div>
 
       <div class="m-t-12">
-        <button
-          mat-flat-button
-          color="primary"
-          class="m-r-8"
-          type="submit"
-          [disabled]="addApproverForm.invalid"
-        >
+        <button mat-flat-button color="primary" class="m-r-8" type="submit" [disabled]="addApproverForm.invalid">
           Submit
         </button>
       </div>
