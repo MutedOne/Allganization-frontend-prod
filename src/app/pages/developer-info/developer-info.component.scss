@@ -1,0 +1,169 @@
+// Utility classes
+.bg-light-primary {
+    background-color: #ecf2ff !important;
+}
+
+.bg-light-secondary {
+    background-color: #fef5e5 !important;
+}
+
+.bg-light-warning {
+    background-color: #fef5e5 !important;
+}
+
+.bg-light-info {
+    background-color: #e8f7ff !important;
+}
+
+.text-primary {
+    color: #5d87ff !important;
+}
+
+.text-secondary {
+    color: #fb9678 !important;
+}
+
+.text-warning {
+    color: #ffa117 !important;
+}
+
+.text-info {
+    color: #539bff !important;
+}
+
+.f-w {
+    &-500 {
+        font-weight: 500;
+    }
+
+    &-600 {
+        font-weight: 600;
+    }
+
+    &-700 {
+        font-weight: 700;
+    }
+}
+
+.f-s {
+    &-12 {
+        font-size: 12px;
+    }
+
+    &-14 {
+        font-size: 14px;
+    }
+
+    &-15 {
+        font-size: 15px;
+    }
+
+    &-16 {
+        font-size: 16px;
+    }
+
+    &-18 {
+        font-size: 18px;
+    }
+
+    &-30 {
+        font-size: 30px;
+    }
+}
+
+.ls-1 {
+    letter-spacing: 1px;
+}
+
+.p-40 {
+    padding: 40px !important;
+}
+
+.mb-32 {
+    margin-bottom: 32px !important;
+}
+
+.pb-32 {
+    padding-bottom: 32px !important;
+}
+
+.ps-32 {
+    padding-left: 32px !important;
+}
+
+.ps-24 {
+    padding-left: 24px !important;
+}
+
+.mt-16 {
+    margin-top: 16px !important;
+}
+
+.m-y-32 {
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+.vibe-banner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    white-space: nowrap;
+    background-color: #5d87ff; // Modernize Primary Color
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 7px 18px;
+    border-bottom-left-radius: 8px;
+    z-index: 100;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+}
+
+mat-chip {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    min-height: 28px !important;
+}
+
+.experience-item {
+    border-left: 2px solid #ebf1f6 !important;
+    position: relative;
+
+    .timeline-dot {
+        position: absolute;
+        left: -7px;
+        top: 5px;
+        width: 12px;
+        height: 12px;
+        border: 2px solid white;
+    }
+
+    &:last-child {
+        border-left: 2px solid transparent !important;
+    }
+
+    ul {
+        list-style-type: circle;
+    }
+}
+
+.rounded-4 {
+    border-radius: 7px !important;
+}
+
+.gap {
+    &-3 {
+        gap: 1rem;
+    }
+
+    &-2 {
+        gap: 0.5rem;
+    }
+}
+
+.lh-lg {
+    line-height: 1.8 !important;
+}

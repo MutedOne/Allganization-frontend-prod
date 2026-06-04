@@ -5,6 +5,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 
 import { AuthGuard } from './auth.guard';
+import { DeveloperInfoComponent } from './pages/developer-info/developer-info.component';
 
 export const routes: Routes = [
   {
@@ -60,6 +61,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'developer-info',
+    component: DeveloperInfoComponent,
   },
   {
     path: '**',
