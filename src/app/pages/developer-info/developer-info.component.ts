@@ -14,17 +14,17 @@ import { MatChipsModule } from '@angular/material/chips';
 export class DeveloperInfoComponent {
   developer = {
     name: 'Stephen Rabor',
-    title: 'Software Developer',
+    title: 'Full-Stack Software Developer',
     email: 'stephenrabor@gmail.com',
-    phone: '+639277314664',
+    phone: '+63 927 731 4664',
     linkedin: 'https://www.linkedin.com/in/stephen-rabor-73827a295/',
-    summary: 'Experienced in building internal and template driven web applications with a focus on performance, maintainability, real‑time, data handling, scalability, and web security. Skilled in debugging, unit testing, and implementing new features in fast‑paced environments. I also have grown expertise in prompt engineering for AI‑driven interfaces.',
+    summary: 'Full-Stack Software Developer with over 3 years of commercial experience engineering web applications across frontend (Angular) and backend (ExpressJS, ASP.NET, PHP) architectures. Experienced in executing structural codebase migrations, building custom REST APIs, and automating operational data flows. Backed by solid execution in handling cloud deployments and resolving runtime architectural constraints.',
     projects: [
       {
         title: 'Allganization',
-        description: 'Developed an in-house system that provides employee services such as asset borrowing, monitoring, and customer transaction management within a unified codebase.',
+        description: 'Enterprise Employee Services Platform (Self-Directed Portfolio System). Designed and built a multi-module platform consolidating functional patterns derived from common corporate workflow bottlenecks. Developed isolated full-stack system modules for hardware asset management, multi-tier approvals, and transactional processing. Programmed the application\'s backend architecture and REST API routes utilizing ExpressJS and MySQL. Implemented custom system security layers covering token authentication, role-based authorization rules, and structural data validation. Deployed and managed the production instance on cPanel shared hosting nodes under regional resource allocations.',
         website: 'https://allganization.com',
-        github: ' (Hidden repo)',
+        github: '(Hidden repo)',
         dates: '2025 - Present'
       },
       {
@@ -43,33 +43,34 @@ export class DeveloperInfoComponent {
       },
     ],
     skills: {
-      backend: ['ExpressJS', 'ASP.net', 'PHP'],
-      frontend: ['Angular', 'ReactJS'],
-      database: ['MYSQL', 'POSTGRESQL']
+      frontend: ['Angular (Upgrades v8 to v17)', 'ReactJS', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3'],
+      backend: ['ExpressJS', 'Node.js', 'ASP.NET Core', 'PHP', 'RESTful API Design', 'APIGEE Gateway'],
+      cloud: ['Azure', 'CI/CD Pipelines', 'Docker (Basic Configuration)', 'cPanel Shared Hosting'],
+      database: ['MySQL', 'PostgreSQL', 'Oracle Server (Configuration/Triage)', 'Git', 'Google Apps Script', 'OpenAI API', 'Unit Testing']
     },
     experience: [
       {
         title: 'Software Developer',
-        dates: 'September 2024 – April 5, 2026',
+        dates: 'September 2024 – April 2026',
         company: 'Alliance Software Inc.',
         responsibilities: [
-          'Attend a sprint ceremony.',
-          'Angular Upgrade.',
-          'Bug fix, enhance and implement new features in the system.',
-          'Unit test.',
-          'Attend deployment in the system.',
-          'Work with API integration via APIGEE.'
+          'Programmed frontend features and components for corporate web applications using Angular and TypeScript.',
+          'Managed structural codebase upgrades for aging platforms, migrating core architectures from Angular 8 up to Angular 17.',
+          'Identified and debugged functional regressions and memory anomalies within active production codebases.',
+          'Integrated business data routes and internal service layers through APIGEE API Gateway configurations.',
+          'Maintained client deployment baselines on Azure infrastructures via structured CI/CD delivery pipelines (specifically for the Cebu Pacific account).',
+          'Wrote automated unit test suites in Jasmine to secure core regression-free logic paths before release verification.',
+          'Participated in routine Agile ceremonies including daily stand-ups, sprint mapping, and deployment handoffs.'
         ]
       },
       {
-        title: 'Fullstack Developer',
+        title: 'Full-Stack Developer (Contract)',
         dates: 'March 2024 – July 2024',
-        company: 'Search Leads Agency (Freelance with Contract)',
+        company: 'Search Leads Agency',
         responsibilities: [
-          'Attend a sprint ceremony.',
-          'Work with Google Apps Script to Integrate OPENAI api.',
-          'Bug fix, enhance and implement new features in the system.',
-          'Unit test.',
+          'Built custom internal CRM features, data webhook hooks, and operational processing mechanisms.',
+          'Programmed automation logic inside Google Apps Script, using OpenAI GPT models to extract data fields and drop manual tasks.',
+          'Participated in technical scoping, staging QA verifications, and cross-browser visual checks.'
         ]
       },
       {
@@ -77,23 +78,26 @@ export class DeveloperInfoComponent {
         dates: 'April 2021 – March 2023',
         company: 'Delsan Business Innovations Corporation',
         responsibilities: [
-          'Template-based application configured by specific organization.',
-          'Response to email, chat, calls from the stakeholders.',
-          'Bug fix, enhance and implement new features in the system.',
-          'Unit test.',
-          'Attend deployment in the system.'
+          'Built and modified customized client-specific corporate database software platforms using ASP.NET and PHP.',
+          'Analyzed legacy customer codebases to pinpoint performance bugs and patch logical gaps.',
+          'Wrote application unit tests, performed local system testing, and generated diagnostic bug documentation.',
+          'Assisted engineering teams with platform configurations, initial site setups, and general server maintenance support.'
         ]
       },
       {
-        title: 'Technical Support',
-        dates: 'June 2,2018 to April 2019',
+        title: 'Technical Support Specialist',
+        dates: 'June 2018 – April 2019',
         company: 'Azpired Inc.',
         responsibilities: [
-          'Take inbound and outbound call.',
-          'Response to email and chat .',
-          'Bug fix, enhance and implement new features in the system.'
+          'Triaged incoming technical infrastructure tickets and user connection challenges over telephone, email, and live text chats.',
+          'Assisted database teams with basic Oracle server configuration verifications and structural endpoint isolation.'
         ]
       }
-    ]
+    ],
+    education: {
+      degree: 'Bachelor of Science in Information Technology (BSIT)',
+      batch: 'Batch 2018',
+      school: 'Cebu Institute of Technology'
+    }
   };
 }
