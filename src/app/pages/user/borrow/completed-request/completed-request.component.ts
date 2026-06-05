@@ -24,6 +24,7 @@ import {
 } from 'src/app/interface/pagination';
 import { MaterialModule } from 'src/app/material.module';
 import { FormsService } from 'src/app/services/admin/borrow/forms.service';
+import { NotificationService } from 'src/app/services/confirmation.service';
 
 import { BorrowRequestCompleted } from 'src/app/store/user/borrow/request/getCompletedRequest/request.actions';
 import {
@@ -60,7 +61,7 @@ export class CompletedRequestComponent {
   viewId: ViewId = defaultId();
   formsService = inject(FormsService);
   readonly dialog = inject(MatDialog);
-
+  private notificationService = inject(NotificationService);
   constructor(private fb: FormBuilder) { }
   storeService = inject(Store);
   allRequest = this.storeService.select(selectBorrowCompleted);
@@ -120,6 +121,7 @@ export class CompletedRequestComponent {
 
         // 4. Clean up the URL object to free up memory
         URL.revokeObjectURL(link.href);
+        this.notificationService.success('Download Success');
       });
   }
   openAddUser() {
