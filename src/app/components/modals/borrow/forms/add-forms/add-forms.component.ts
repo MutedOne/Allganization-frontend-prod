@@ -48,6 +48,7 @@ export class AddFormsComponent {
   formsForm!: FormGroup;
   pdfUrl: SafeResourceUrl | null = '';
   storeService = inject(Store);
+  hasFile: boolean = false
   constructor(
     private fb: FormBuilder,
     private sanitizer: DomSanitizer,
@@ -108,6 +109,7 @@ export class AddFormsComponent {
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
+      this.hasFile = true
       this.formsForm.patchValue({
         file: input.files[0],
       });
