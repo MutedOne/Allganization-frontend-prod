@@ -1,5 +1,6 @@
- <div class="p-6"><mat-card-title class="mat-mdc-card-title mb-0">Management</mat-card-title></div> <br>
+ 
 <div class="row">
+  <div class="p-6"><mat-card-title class="mat-mdc-card-title mb-0">Management</mat-card-title></div> <br>
   @for (item of projectList; track item.title) {
   <div class="col-4"><app-projects [projectData]="item"></app-projects></div>
   }

@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
 import { ProjectsComponent } from 'src/app/components/projects/projects.component';
 
 @Component({
   selector: 'app-admin',
-  imports: [ProjectsComponent],
+  imports: [ProjectsComponent,
+      MatCardModule],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
 })
