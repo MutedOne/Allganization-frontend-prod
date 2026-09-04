@@ -5,12 +5,12 @@ export const navItems: NavItem[] = [
     navCap: 'Home',
   },
   {
-    displayName: 'Users',
+    displayName: 'Employee Portal',
     iconName: 'layout-grid-add',
     route: '/users',
   },
   {
-    displayName: 'Admin',
+    displayName: 'Admin Portal',
     iconName: 'layout-grid-add',
     route: '/admin',
   },

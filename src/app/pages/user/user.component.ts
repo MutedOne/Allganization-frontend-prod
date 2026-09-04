@@ -10,14 +10,14 @@ import { ProjectsComponent } from 'src/app/components/projects/projects.componen
 export class UserComponent {
    projectList = [
     {
-      title: 'Internal Shop',
+      title: 'Employee Store',
       navigateTo: '/shop',
       img: 'assets/images/svgs/icon-account.svg',
       progress: 80,
       color: 'primary',
     },
    {
-      title: 'Borrow',
+      title: 'Asset',
       navigateTo: '/borrow',
       img: 'assets/images/svgs/icon-account.svg',
       progress: 80,

@@ -10,21 +10,21 @@ import { ProjectsComponent } from 'src/app/components/projects/projects.componen
 export class AdminComponent {
   projectList = [
     {
-      title: 'Account Setup',
+      title: 'Human Resource',
       navigateTo: '/admin/account',
       img: 'assets/images/svgs/icon-account.svg',
       progress: 80,
       color: 'primary',
     },
     {
-      title: 'Shop Setup',
+      title: 'Employee Store',
       navigateTo: '/admin/shop',
       img: 'assets/images/svgs/icon-account.svg',
       progress: 80,
       color: 'primary',
     },
     {
-      title: 'Borrow Setup',
+      title: 'Asset',
       navigateTo: '/admin/borrow/forms',
       img: 'assets/images/svgs/icon-account.svg',
       progress: 80,
